@@ -6,50 +6,18 @@ import java.net.Socket;
 import java.util.*;
 
 
-public class connect{
-
-
-
-
-
-
-  public static void main(String[] args){
-
-    connect con = new connect();
-
-    Scanner scan = new Scanner(System.in);
-
-    System.out.print("Word: ");
-    String input1 = scan.next();
-
-
-
-
-
+public class Connect {        public static void main(String[] args){
+    Connect con = new Connect();  Scanner scan = new Scanner(System.in); System.out.print("Word: ");
+    String input1 = scan.nextLine();
 
     con.connection(input1);
-
-
-
-
-
-
-
+    while (true) { }
   }
 
 
-
-  public void connection(String input){
-
-    String serverIP = "localhost";
-    int serverPort = 50000;
-
-    Socket socket = null;
+  public void connection(String input){ String serverIP = "localhost"; int serverPort = 50000; Socket socket = null;
     PrintWriter out = null;
     BufferedReader in = null;
-
-
-
     try {
       // Connect to server
       socket = new Socket(serverIP, serverPort);
@@ -63,16 +31,11 @@ public class connect{
       // Read server response
       String serverMessage = in.readLine();
       System.out.println("Message: " + serverMessage + ":end");
-      out.close();
 
     } catch (IOException e) {
         e.printStackTrace();
     }
 
-    out.close();
-
+    System.out.println("END");
   }
-
-
-
 }
