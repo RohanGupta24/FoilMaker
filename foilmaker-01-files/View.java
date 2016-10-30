@@ -1,3 +1,4 @@
+//View
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -9,9 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-/**
- * Created by rohangupta on 10/30/16.
- */
+
 public class View extends JFrame {
 
     JPanel mainPanel = new JPanel();

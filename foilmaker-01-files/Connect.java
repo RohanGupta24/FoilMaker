@@ -1,3 +1,4 @@
+//Model
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -6,29 +7,30 @@ import java.net.Socket;
 import java.util.*;
 
 
-public class Connect {        public static void main(String[] args){
+public class Connect {
+
+
+  public static void main(String[] args){
     Connect con = new Connect();  Scanner scan = new Scanner(System.in); System.out.print("Word: ");
     String input1 = scan.nextLine();
 
     con.connection(input1);
     while (true) { }
+
   }
 
 
   public void connection(String input){ String serverIP = "localhost"; int serverPort = 50000; Socket socket = null;
-    PrintWriter out = null;
+    PrintWriter server = null;
     BufferedReader in = null;
     try {
-      // Connect to server
+
       socket = new Socket(serverIP, serverPort);
-      // Create data writer
-      out = new PrintWriter(socket.getOutputStream(), true);
-      // Create data reader
+      server = new PrintWriter(socket.getOutputStream(), true);
       InputStreamReader isr = new InputStreamReader(socket.getInputStream());
       in = new BufferedReader(isr);
-      // Send message to server
-      out.println(input);
-      // Read server response
+      server.println(input);
+
       String serverMessage = in.readLine();
       System.out.println("Message: " + serverMessage + ":end");
 
