@@ -22,6 +22,14 @@ public class Controller{
         player.setGameToken("Hello");
         System.out.println("Second token: " + player.getGameToken());
 
+        String button = "Nope";
+        button = view.password.getText();
+
+        String userPassword = view.passwordBox.getSelectedText();
+
+        System.out.println(userPassword);
+        System.out.println("Button " + button);
+
 
 
     }
@@ -32,6 +40,8 @@ public class Controller{
 
 
     public void Connect(String input){
+
+
         String serverIP = "localhost";
         int serverPort = 50000;
         Socket socket = null;
