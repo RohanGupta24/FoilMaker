@@ -7,20 +7,30 @@ import java.net.Socket;
 import java.util.*;
 
 
-public class Connect {
+public class Model {
 
 
-  public static void main(String[] args){
-    Connect con = new Connect();  Scanner scan = new Scanner(System.in); System.out.print("Word: ");
-    String input1 = scan.nextLine();
+  private String gameToken = null;
+  
 
-    con.connection(input1);
-    while (true) { }
+  public void setGameToken(String token){
+    this.gameToken = token;
+  }
 
+  public String getGameToken(){
+    return this.gameToken;
   }
 
 
-  public void connection(String input){ String serverIP = "localhost"; int serverPort = 50000; Socket socket = null;
+
+
+
+
+
+  public void connection(String input){
+    String serverIP = "localhost";
+    int serverPort = 50000;
+    Socket socket = null;
     PrintWriter server = null;
     BufferedReader in = null;
     try {
@@ -40,4 +50,7 @@ public class Connect {
 
     System.out.println("END");
   }
+
+
+
 }
