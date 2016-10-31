@@ -16,12 +16,18 @@ public class Controller{
 
 
         Model player = new Model();
+        View view = new View();
 
         System.out.println("First token: " + player.getGameToken());
         player.setGameToken("Hello");
         System.out.println("Second token: " + player.getGameToken());
 
+
+
     }
+
+
+
 
 
 
