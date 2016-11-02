@@ -8,10 +8,8 @@ import java.util.*;
 
 public class Controller{
 
-    Model player;
-    View view;
 
-
+    static FoilMakerView view = new FoilMakerView();
 
 
 
@@ -21,29 +19,86 @@ public class Controller{
         Controller controller = new Controller();
 
 
-        String output = connection("Hello");
+        view.loginPage();
 
     }
 
 
     public Controller(){
 
-        player = new Model();
-        view = new View();
 
     }
 
 
-    public Model getModel(){
-        return this.player;
+
+
+
+    public boolean isRegistered(){
+
+        String username = view.getUsernameText();
+        String password = view.getPasswordText();
+        String output = connection("CREATENEWUSER--" + username + "--" + password);
+
+
+        if(output.equals("RESPONSE--CREATENEWUSER--SUCCESS")){
+            return true;
+        }else if(output.equals("RESPONSE--CREATENEWUSER--INVALIDMESSAGEFORMAT--CREATENEWUSER--" + username + "--" +
+                password)){
+            view.setTitle("Invalid Message Format: Try again");
+            return false;
+        }else if(output.equals("RESPONSE--CREATENEWUSER--INVALIDUSERNAME--CREATENEWUSER--" + username + "--" +
+                password)){
+            view.setTitle("Username empty");
+            return false;
+        }else if(output.equals("RESPONSE--CREATENEWUSER--INVALIDUSERPASSWORD--CREATENEWUSER--" + username + "--" +
+                password)){
+            view.setTitle("Password empty");
+            return false;
+        }else if(output.equals("RESPONSE--CREATENEWUSER--USERALREADYEXISTS--CREATENEWUSER--" + username + "--" + password)){
+            view.setTitle("User already exists");
+        }
+
+        System.out.println("isRegistered Error");
+        return false;
     }
 
-    public View getView(){
-        return this.view;
+
+
+
+
+
+
+
+    public boolean isNewGameStarted(){
+
+        return false;
     }
 
 
+    public boolean isJoinAGame(){
+        return false;
+    }
 
+
+    public boolean isGameStarted(){
+        return false;
+    }
+
+    public boolean isJoinGame(){
+        return false;
+    }
+
+    public boolean isSubmitSuggestion(){
+        return false;
+    }
+
+    public boolean isSubmitOption(){
+        return false;
+    }
+
+    public boolean isNextRound(){
+        return false;
+    }
 
 
 

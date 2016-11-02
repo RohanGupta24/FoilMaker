@@ -12,15 +12,18 @@ import javax.swing.border.Border;
  * Created by rohangupta on 10/31/16.
  */
 public class FoilMakerView extends JFrame implements ActionListener {
-<<<<<<< Updated upstream
+
     Controller controller = new Controller();
-=======
 
 
->>>>>>> Stashed changes
+
+
     JFrame frame = new JFrame();
     JPanel mainPanel = new JPanel();
     CardLayout layout = new CardLayout();
+
+    //TODO We need a message box to tell the user what is happening 
+
 
     //Setter methods
     private String option1Text;
@@ -34,6 +37,25 @@ public class FoilMakerView extends JFrame implements ActionListener {
     private String passwordText;
     private String checkKeyValidity;
     private String userSuggestion;
+
+
+
+    //Global Panels
+    //I moved these from the individual methods up here so that all
+    //the methods in the class can access them.
+    private JPanel panelFirst = new JPanel();
+    private JPanel panelSecond = new JPanel();
+    private JPanel panelThird = new JPanel();
+    private JPanel panelFourth = new JPanel();//This panel had to previous deceleration. Is it suposed to be declared
+    // in the controller?
+    private JPanel panelFifth = new JPanel();
+    private JPanel panelSixth = new JPanel();
+    private JPanel panelSeventh = new JPanel();
+    private JPanel panelEighth = new JPanel();
+
+
+
+
 
     public FoilMakerView() {
         setUpGUI();
@@ -57,14 +79,14 @@ public class FoilMakerView extends JFrame implements ActionListener {
         mainPanel.add(panelSixth, "6");
         mainPanel.add(panelSeventh, "7");
         mainPanel.add(panelEighth, "8");
-        panelFirst.setBorder(p1);
-        panelSecond.setBorder(rest);
-        panelThird.setBorder(rest);
-        panelFourth.setBorder(rest);
-        panelFifth.setBorder(rest);
-        panelSixth.setBorder(rest);
-        panelSeventh.setBorder(rest);
-        panelEighth.setBorder(rest);
+        panelFirst.setBorder(p1);       //
+        panelSecond.setBorder(rest);    //
+        panelThird.setBorder(rest);     //
+        panelFourth.setBorder(rest);    //TODO These are not accessible the way they are now
+        panelFifth.setBorder(rest);     //
+        panelSixth.setBorder(rest);     //
+        panelSeventh.setBorder(rest);   //
+        panelEighth.setBorder(rest);    //
 
     }
 
@@ -72,6 +94,14 @@ public class FoilMakerView extends JFrame implements ActionListener {
         JButton a = (JButton) e.getSource();
         layoutDisplay(a);
     }
+
+
+
+
+    /*
+    TODO: Where are these buttons being created?
+     */
+
 
     public void layoutDisplay(AbstractButton a) {
         if(a == buttonLogin || a == buttonRegister) {
@@ -83,6 +113,12 @@ public class FoilMakerView extends JFrame implements ActionListener {
             while(registered == false);
             layout.show(mainPanel, "2");
         }
+
+
+
+        //TODO Create one of these for a separate LoginButton
+
+
         else if(a == buttonStartNewGame) {
             boolean gameStarted;
             do {
@@ -148,8 +184,8 @@ public class FoilMakerView extends JFrame implements ActionListener {
         }
     }
 
-    public void loginPage() {
-        JPanel panelFirst = new JPanel();
+    public JPanel loginPage() {
+
         JPanel subPanel1 = new JPanel(new GridLayout(1,2));
         JPanel subPanel2 = new JPanel(new GridLayout(1,2));
         JPanel subPanel3 = new JPanel(new GridLayout(1,2));
@@ -185,10 +221,12 @@ public class FoilMakerView extends JFrame implements ActionListener {
         subPanel3.add(Box.createHorizontalStrut(1));
         subPanel3.add(buttonRegister);
         buttonRegister.addActionListener(new FoilMakerView());
+
+        return this.panelFirst;
     }
 
     public void optionToJoinOrStartPage() {
-        JPanel panelSecond = new JPanel();
+
         JPanel secondSubPanel = new JPanel(new GridLayout(1,2));
         JButton buttonStartNewGame = new JButton("Start New Game");
         JButton buttonJoinAGame = new JButton("Join a Game");
@@ -202,7 +240,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
     }
 
     public void displayParticipantsPage() {
-        JPanel panelThird = new JPanel();
+
         JPanel thirdSubPanel = new JPanel(new GridLayout(4,1));
         JLabel keyDescription = new JLabel("Others should use this key to join your game");
         JTextField key = new JTextField();
@@ -223,6 +261,16 @@ public class FoilMakerView extends JFrame implements ActionListener {
         thirdSubPanel.add(buttonStartGame);
     }
 
+
+
+
+    /*
+    TODO Where is the fourthSubPanel?
+     */
+
+
+
+
     public void joinExistingGamePage() {
         //Server should provide game key to user
         panelFourth.add(fourthSubPanel);
@@ -234,7 +282,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
     }
 
     public void waitingLeaderPage() {
-        JPanel panelFifth = new JPanel();
+
         JPanel fifthSubPanel = new JPanel(new GridLayout(1,0));
         JLabel waitingLeader = new JLabel("Waiting for leader...");
         //Difficult: waiting leader (response from server)
@@ -247,7 +295,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
     }
 
     public void wordIdentificationPage() {
-        JPanel panelSixth = new JPanel();
+
         JPanel sixthSubPanel = new JPanel(new GridLayout(4,1));
         JPanel wordIdentification = new JPanel();
         JLabel wordClue = new JLabel();
@@ -276,7 +324,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
     }
 
     public void pickOptionPage() {
-        JPanel panelSeventh = new JPanel();
+
         JPanel seventhSubPanel = new JPanel(new GridLayout(5,1));
         JLabel pickOptionDescription = new JLabel("Pick your option below");
         JRadioButton option1 = new JRadioButton();
@@ -302,7 +350,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
     }
 
     public void resultsPage() {
-        JPanel panelEighth = new JPanel();
+
         JPanel eightSubPanel = new JPanel(new GridLayout(3,1));
         JPanel roundResult = new JPanel();
         JPanel overallResults = new JPanel();
