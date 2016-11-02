@@ -1,5 +1,6 @@
 //Controller
 import java.io.*;
+import java.net.ConnectException;
 import java.net.Socket;
 import java.util.*;
 
@@ -7,31 +8,38 @@ import java.util.*;
 
 public class Controller{
 
+    Model player;
+    View view;
 
-    public Controller(){
 
-    }
+
+
 
     public static void main(String[] args){
 
 
-        Model player = new Model();
-        View view = new View();
-
-        System.out.println("First token: " + player.getGameToken());
-        player.setGameToken("Hello");
-        System.out.println("Second token: " + player.getGameToken());
-
-        String button = "Nope";
-        button = view.password.getText();
-
-        String userPassword = view.passwordBox.getSelectedText();
-
-        System.out.println(userPassword);
-        System.out.println("Button " + button);
+        Controller controller = new Controller();
 
 
+        String output = connection("Hello");
 
+    }
+
+
+    public Controller(){
+
+        player = new Model();
+        view = new View();
+
+    }
+
+
+    public Model getModel(){
+        return this.player;
+    }
+
+    public View getView(){
+        return this.view;
     }
 
 
@@ -39,7 +47,9 @@ public class Controller{
 
 
 
-    public void Connect(String input){
+
+
+    public static String connection(String input){
 
 
         String serverIP = "localhost";
@@ -56,13 +66,15 @@ public class Controller{
             server.println(input);
 
             String serverMessage = in.readLine();
-            System.out.println("Message: " + serverMessage + ":end");
+
+            return serverMessage;
 
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        System.out.println("END");
+
+        return "No return message for some reason";
     }
 
 

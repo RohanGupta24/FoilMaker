@@ -12,7 +12,12 @@ import javax.swing.border.Border;
  * Created by rohangupta on 10/31/16.
  */
 public class FoilMakerView extends JFrame implements ActionListener {
+<<<<<<< Updated upstream
     Controller controller = new Controller();
+=======
+
+
+>>>>>>> Stashed changes
     JFrame frame = new JFrame();
     JPanel mainPanel = new JPanel();
     CardLayout layout = new CardLayout();
