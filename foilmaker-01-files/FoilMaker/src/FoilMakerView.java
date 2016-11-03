@@ -16,13 +16,11 @@ public class FoilMakerView extends JFrame implements ActionListener {
     Controller controller = new Controller();
 
 
-
-
     JFrame frame = new JFrame();
     JPanel mainPanel = new JPanel();
     CardLayout layout = new CardLayout();
 
-    //TODO We need a message box to tell the user what is happening 
+    //TODO We need a message box to tell the user what is happening. Update: Yeah I know. I haven't figured that out yet.
 
 
     //Setter methods
@@ -47,16 +45,25 @@ public class FoilMakerView extends JFrame implements ActionListener {
     private JPanel panelSecond = new JPanel();
     private JPanel panelThird = new JPanel();
     private JPanel panelFourth = new JPanel();//This panel had to previous deceleration. Is it suposed to be declared
-    // in the controller?
+    // in the controller? //Update: I don't quite understand what you are saying here
     private JPanel panelFifth = new JPanel();
     private JPanel panelSixth = new JPanel();
     private JPanel panelSeventh = new JPanel();
     private JPanel panelEighth = new JPanel();
 
+    private Border p1 = BorderFactory.createTitledBorder("FoilMaker!");
+    private Border rest = Border rest = BorderFactory.createTitledBorder(username);
 
-
-
-
+    private JButton buttonLogin = new JButton("Login");
+    private JButton buttonRegister = new JButton("Register");
+    private JButton buttonStartNewGame = new JButton("Start New Game");
+    private JButton buttonJoinAGame = new JButton("Join a Game");
+    private JButton buttonStartGame = new JButton("Start Game");
+    private JButton buttonJoinGame = new JButton("Join Game");
+    private JButton buttonSubmitSuggestion = new JButton("Submit Suggestion");
+    private JButton buttonSubmitOption = new JButton("Submit Option");
+    private JButton buttonNextRound = new JButton("Next Round");
+    
     public FoilMakerView() {
         setUpGUI();
     }
@@ -79,14 +86,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
         mainPanel.add(panelSixth, "6");
         mainPanel.add(panelSeventh, "7");
         mainPanel.add(panelEighth, "8");
-        panelFirst.setBorder(p1);       //
-        panelSecond.setBorder(rest);    //
-        panelThird.setBorder(rest);     //
-        panelFourth.setBorder(rest);    //TODO These are not accessible the way they are now
-        panelFifth.setBorder(rest);     //
-        panelSixth.setBorder(rest);     //
-        panelSeventh.setBorder(rest);   //
-        panelEighth.setBorder(rest);    //
+        //TODO These are not accessible the way they are now. COMPLETE: I think I fixed the issue with the border layouts
 
     }
 
@@ -99,12 +99,21 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
     /*
-    TODO: Where are these buttons being created?
+    TODO: Where are these buttons being created? COMPLELTED: They are created as global variables so all methods can access them.
      */
 
 
     public void layoutDisplay(AbstractButton a) {
-        if(a == buttonLogin || a == buttonRegister) {
+        if(a == buttonLogin) {
+            boolean logged;
+            do {
+                logged = controller.isLogged();
+                layout.show(mainPanel, "1");
+            }
+            while (logged == false);
+            layout.show(mainPanel, "2");
+        }
+        else if(a == buttonRegister) {
             boolean registered;
             do {
                 registered = controller.isRegistered();
@@ -116,7 +125,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
 
-        //TODO Create one of these for a separate LoginButton
+        //TODO Create one of these for a separate LoginButton; COMPLETED: Added a login button
 
 
         else if(a == buttonStartNewGame) {
@@ -189,9 +198,6 @@ public class FoilMakerView extends JFrame implements ActionListener {
         JPanel subPanel1 = new JPanel(new GridLayout(1,2));
         JPanel subPanel2 = new JPanel(new GridLayout(1,2));
         JPanel subPanel3 = new JPanel(new GridLayout(1,2));
-        Border p1 = BorderFactory.createTitledBorder("FoilMaker!");
-        JButton buttonLogin = new JButton("Login");
-        JButton buttonRegister = new JButton("Register");
         JLabel username = new JLabel("Username");
         JLabel password = new JLabel("Password");
         JPasswordField passwordBox = new JPasswordField();
@@ -199,6 +205,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
         //RENDER login
         //Record username and password in server when user registers so login is successful the next time
         panelFirst.setLayout(null);
+        panelFirst.setBorder(p1);
         panelFirst.add(subPanel1);
         subPanel1.setSize(500,200);
         subPanel1.add(username);
@@ -215,7 +222,6 @@ public class FoilMakerView extends JFrame implements ActionListener {
         //IMPORTANT: This retrieves username and password to record in server
         usernameText = usernameBox.getText();
         passwordText = passwordBox.getText();
-        Border rest = BorderFactory.createTitledBorder(username);
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
         subPanel3.add(Box.createHorizontalStrut(1));
@@ -228,9 +234,8 @@ public class FoilMakerView extends JFrame implements ActionListener {
     public void optionToJoinOrStartPage() {
 
         JPanel secondSubPanel = new JPanel(new GridLayout(1,2));
-        JButton buttonStartNewGame = new JButton("Start New Game");
-        JButton buttonJoinAGame = new JButton("Join a Game");
         panelSecond.setLayout(null);
+        panelSecond.setBorder(rest);
         panelSecond.add(secondSubPanel);
         secondSubPanel.setSize(500,200);
         secondSubPanel.setBounds(50,200,200,20);
@@ -245,9 +250,9 @@ public class FoilMakerView extends JFrame implements ActionListener {
         JLabel keyDescription = new JLabel("Others should use this key to join your game");
         JTextField key = new JTextField();
         JPanel participants = new JPanel();
-        JButton buttonStartGame = new JButton("Start Game");
         //Display participants and key to user (from server)
         panelThird.add(thirdSubPanel);
+        panelThird.setBorder(rest);
         thirdSubPanel.setSize(500,200);
         thirdSubPanel.setBounds(50,125,200,20);
         thirdSubPanel.add(keyDescription);
@@ -265,7 +270,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
     /*
-    TODO Where is the fourthSubPanel?
+    TODO Where is the fourthSubPanel? COMPLETE: I added the fourthSubPanel in the method.
      */
 
 
@@ -273,7 +278,11 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
     public void joinExistingGamePage() {
         //Server should provide game key to user
+        JPanel fourthSubPanel = new JPanel(new GridLayout(3,1));
+        JLabel gameKeyInstructions = new JLabel("Enter the game key to join a game");
+        JTextField gameKey = new JTextField();
         panelFourth.add(fourthSubPanel);
+        panelFourth.setBorder(rest);
         fourthSubPanel.add(gameKeyInstructions);
         fourthSubPanel.add(gameKey);
         checkKeyValidity = gameKey.getText(); //The server should check to see if the game key is valid
@@ -288,6 +297,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
         //Difficult: waiting leader (response from server)
         //Server is supposed to recognize when the leader has entered the game
         panelFifth.add(fifthSubPanel);
+        panelFifth.setBorder(rest);
         fifthSubPanel.add(waitingLeader);
         waitingLeader.setVerticalAlignment(waitingLeader.CENTER);
         //Server does work here in order to switch to new Panel
@@ -301,11 +311,11 @@ public class FoilMakerView extends JFrame implements ActionListener {
         JLabel wordClue = new JLabel();
         JPanel suggestion = new JPanel();
         JTextField suggestionBox = new JTextField();
-        JButton buttonSubmitSuggestion = new JButton("Submit Suggestion");
         JLabel wordIdentifcationInstructions = new JLabel("What is the word for");
         //Server is supposed to have a word identifier phrase in the "wordIdentification" panel
         // and is supposed to record the user's suggestion that will then be used in the next panel
         panelSixth.add(sixthSubPanel);
+        panelSixth.setBorder(rest);
         sixthSubPanel.setSize(300,500);
         sixthSubPanel.add(wordIdentifcationInstructions);
         sixthSubPanel.add(wordIdentification);
@@ -331,10 +341,10 @@ public class FoilMakerView extends JFrame implements ActionListener {
         JRadioButton option2 = new JRadioButton();
         JRadioButton option3 = new JRadioButton();
         ButtonGroup options = new ButtonGroup();
-        JButton buttonSubmitOption = new JButton("Submit Option");
         //Display the suggestions recorded in the previous panel in the text for
         // the Radio Buttons
         panelSeventh.add(seventhSubPanel);
+        panelSeventh.setBorder(rest);
         seventhSubPanel.add(pickOptionDescription);
         options.add(option1);
         options.add(option2);
@@ -354,10 +364,10 @@ public class FoilMakerView extends JFrame implements ActionListener {
         JPanel eightSubPanel = new JPanel(new GridLayout(3,1));
         JPanel roundResult = new JPanel();
         JPanel overallResults = new JPanel();
-        JButton buttonNextRound = new JButton("Next Round");
         //Server displays round results and overall results in each of the panels
         // called "roundResult" and "overallResults"
         panelEighth.add(eightSubPanel);
+        panelEighth.setBorder(rest);
         eightSubPanel.add(roundResult);
         Border r = BorderFactory.createTitledBorder("Round Result");
         roundResult.setBorder(r);
