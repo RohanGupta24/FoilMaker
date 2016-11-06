@@ -221,6 +221,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         passwordText = passwordBox.getText();
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
+        buttonLogin.addActionListener(this);
         subPanel3.add(Box.createHorizontalStrut(1));
         subPanel3.add(buttonRegister);
         buttonRegister.addActionListener(this);
@@ -238,7 +239,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         secondSubPanel.setBounds(50,200,200,20);
         secondSubPanel.add(buttonStartNewGame);
         secondSubPanel.add(buttonJoinAGame);
-        buttonJoinAGame.addActionListener(new FoilMakerView());
+        buttonJoinAGame.addActionListener(this);
     }
 
     public void displayParticipantsPage() {
@@ -261,6 +262,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         participants.setBorder(forParticipants);
         participants.setBackground(Color.orange);
         thirdSubPanel.add(buttonStartGame);
+        buttonStartGame.addActionListener(this);
     }
 
 
@@ -282,7 +284,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         fourthSubPanel.add(gameKey);
         checkKeyValidity = gameKey.getText(); //The server should check to see if the game key is valid
         fourthSubPanel.add(buttonJoinGame);
-        buttonJoinGame.addActionListener(new FoilMakerView());
+        buttonJoinGame.addActionListener(this);
     }
 
     public void waitingLeaderPage() {
@@ -325,7 +327,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         //IMPORTANT: Record userSuggestion in server
         userSuggestion = suggestionBox.getText();
         sixthSubPanel.add(buttonSubmitSuggestion);
-        buttonSubmitSuggestion.addActionListener(new FoilMakerView());
+        buttonSubmitSuggestion.addActionListener(this);
     }
 
     public void pickOptionPage() {
@@ -351,7 +353,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         seventhSubPanel.add(option3);
         option3.setText(option3Text); //Replace with server's record
         seventhSubPanel.add(buttonSubmitOption);
-        buttonSubmitOption.addActionListener(new FoilMakerView());
+        buttonSubmitOption.addActionListener(this);
     }
 
     public void resultsPage() {
@@ -372,7 +374,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         overallResults.setBorder(q);
         overallResults.setBackground(Color.orange);
         eightSubPanel.add(buttonNextRound);
-        buttonNextRound.addActionListener(new FoilMakerView());
+        buttonNextRound.addActionListener(this);
     }
 
     public void setOption1Text(String option1Text) {
