@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+
 /**
  * Created by willborland on 11/1/16.
  */
@@ -12,62 +13,96 @@ public class testServerResponse {
 
 
 
-    public static void main(String[] args){
-
-        Scanner scan = new Scanner(System.in);
-
-        String input = null;
-
-        //System.out.println("Enter phrase: ");
-        //input = scan.nextLine();
-
-        System.out.println("Output: " + isRegistered());
-    }
+        PrintWriter out;
+        BufferedReader in;
 
 
 
-    public static boolean isRegistered(){
+    public testServerResponse(){
 
-
-        String username = "h";
-        String password = "a";
-
-        String input = "CREATENEWUSER--" + username + "--" + password;
-        System.out.println(input);
-        String output = connection(input);
-        System.out.println("Output varible is: " + output);
-
-
-
-        return false;
-    }
-
-
-    public static String connection(String input){
 
 
         String serverIP = "localhost";
         int serverPort = 50000;
-        Socket socket = null;
-        PrintWriter server = null;
-        BufferedReader in = null;
-        try {
 
-            socket = new Socket(serverIP, serverPort);
-            server = new PrintWriter(socket.getOutputStream(), true);
+        try{
+
+
+            Socket socket = new Socket(serverIP,serverPort);
+            out = new PrintWriter(socket.getOutputStream(), true);
             InputStreamReader isr = new InputStreamReader(socket.getInputStream());
             in = new BufferedReader(isr);
-            server.println(input);
 
-            String serverMessage = in.readLine();
-
-            return serverMessage;
-
-        } catch (IOException e) {
+        }catch (IOException e){
             e.printStackTrace();
         }
 
 
-        return "No return message for some reason";
     }
+
+
+
+
+    public static void main(String[] args) throws IOException{
+
+
+        testServerResponse work = new testServerResponse();
+
+        Scanner scan = new Scanner(System.in);
+
+
+
+
+
+
+
+
+
+        do{
+
+            String input = scan.nextLine();
+
+            if(input.equals("test")){
+                break;
+            }
+
+
+            String connection = work.connect(input);
+
+            System.out.println("Server output is: " + connection);
+            //System.out.println(connection.lastIndexOf("-"));
+            //System.out.println(connection.substring(connection.lastIndexOf("-") + 1));
+
+
+
+
+        }while(true);
+
+
+
+
+
+    }
+
+
+    public String connect(String input){
+
+        String output = "Didn't work";
+
+        try{
+
+            this.out.println(input);
+            output = this.in.readLine();
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return output;
+
+    }
+
+
+
 }

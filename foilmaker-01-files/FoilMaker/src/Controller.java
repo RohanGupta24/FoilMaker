@@ -1,25 +1,30 @@
 //Controller
+
+
 import java.io.*;
-import java.net.ConnectException;
 import java.net.Socket;
-import java.util.*;
+
 
 
 
 public class Controller{
 
 
-    static FoilMakerView view = new FoilMakerView();
+    static FoilMakerView view;
+    static Model model;
+    static Socket socket;
+    static PrintWriter server;
+    static BufferedReader in;
 
 
 
     public static void main(String[] args){
 
+        view = new FoilMakerView();
 
-        Controller controller = new Controller();
+       // view.loginPage();
 
 
-        view.loginPage();
 
     }
 
@@ -27,7 +32,25 @@ public class Controller{
     public Controller(){
 
 
+        model = new Model();
+
+        try {
+
+            String serverIP = "localhost";
+            int serverPort = 50000;
+            socket = new Socket(serverIP, serverPort);
+            server = new PrintWriter(socket.getOutputStream(), true);
+            InputStreamReader isr = new InputStreamReader(socket.getInputStream());
+            in = new BufferedReader(isr);
+
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
     }
+
+
 
 
 
@@ -62,7 +85,30 @@ public class Controller{
         return false;
     }
 
+    public boolean isLogged() {
 
+
+        String username = view.getUsernameText();
+        String password = view.getPasswordText();
+        String output = connection("LOGIN--" + username + "--" + password);
+
+        if(output.contains("SUCCESS")){
+            this.model.setUserUsername(username);
+            this.model.setUserPassword(password);
+            this.model.setGameToken(output.substring(output.lastIndexOf("-") + 1));
+            return true;
+        }else if(output.contains("INVALIDMESSAGEFORMAT")){
+            return false;
+        }else if(output.contains("UNKNOWNUSER")){
+            return false;
+        }else if(output.contains("INVALIDUSERPASSWORD")){
+            return false;
+        }else if(output.contains("USERALREADYLOGGEDIN")){
+            return false;
+        }
+
+        return false;
+    }
 
 
 
@@ -71,12 +117,13 @@ public class Controller{
 
     public boolean isNewGameStarted(){
 
-        return false;
+        return true;
+
     }
 
 
     public boolean isJoinAGame(){
-        return false;
+        return true;
     }
 
 
@@ -104,30 +151,18 @@ public class Controller{
 
 
 
+
+
     public static String connection(String input){
 
 
-        String serverIP = "localhost";
-        int serverPort = 50000;
-        Socket socket = null;
-        PrintWriter server = null;
-        BufferedReader in = null;
         try {
-
-            socket = new Socket(serverIP, serverPort);
-            server = new PrintWriter(socket.getOutputStream(), true);
-            InputStreamReader isr = new InputStreamReader(socket.getInputStream());
-            in = new BufferedReader(isr);
             server.println(input);
-
             String serverMessage = in.readLine();
-
             return serverMessage;
-
         } catch (IOException e) {
             e.printStackTrace();
         }
-
 
         return "No return message for some reason";
     }

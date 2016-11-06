@@ -8,13 +8,11 @@ import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
 
-/**
- * Created by rohangupta on 10/31/16.
- */
-public class FoilMakerView extends JFrame implements ActionListener {
 
-    Controller controller = new Controller();
+public class FoilMakerView extends JFrame implements ActionListener{
 
+
+    Controller controller;
 
     JFrame frame = new JFrame();
     JPanel mainPanel = new JPanel();
@@ -38,21 +36,19 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
 
-    //Global Panels
-    //I moved these from the individual methods up here so that all
-    //the methods in the class can access them.
+
     private JPanel panelFirst = new JPanel();
     private JPanel panelSecond = new JPanel();
     private JPanel panelThird = new JPanel();
-    private JPanel panelFourth = new JPanel();//This panel had to previous deceleration. Is it suposed to be declared
-    // in the controller? //Update: I don't quite understand what you are saying here
+    private JPanel panelFourth = new JPanel();
     private JPanel panelFifth = new JPanel();
     private JPanel panelSixth = new JPanel();
     private JPanel panelSeventh = new JPanel();
     private JPanel panelEighth = new JPanel();
 
     private Border p1 = BorderFactory.createTitledBorder("FoilMaker!");
-    private Border rest = Border rest = BorderFactory.createTitledBorder(username);
+    private Border rest =  BorderFactory.createTitledBorder(usernameText);
+
 
     private JButton buttonLogin = new JButton("Login");
     private JButton buttonRegister = new JButton("Register");
@@ -64,8 +60,12 @@ public class FoilMakerView extends JFrame implements ActionListener {
     private JButton buttonSubmitOption = new JButton("Submit Option");
     private JButton buttonNextRound = new JButton("Next Round");
     
-    public FoilMakerView() {
+    public FoilMakerView(){
+
+
+        controller = new Controller();
         setUpGUI();
+
     }
 
     private void setUpGUI() {
@@ -77,7 +77,9 @@ public class FoilMakerView extends JFrame implements ActionListener {
         frame.setResizable(true);
         frame.setVisible(true);
         mainPanel.setLayout(layout);
-        setTitle("FoilMaker");
+        frame.setTitle("FoilMaker");
+
+
         mainPanel.add(panelFirst, "1");
         mainPanel.add(panelSecond, "2");
         mainPanel.add(panelThird, "3");
@@ -86,11 +88,11 @@ public class FoilMakerView extends JFrame implements ActionListener {
         mainPanel.add(panelSixth, "6");
         mainPanel.add(panelSeventh, "7");
         mainPanel.add(panelEighth, "8");
-        //TODO These are not accessible the way they are now. COMPLETE: I think I fixed the issue with the border layouts
+
 
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void actionPerformed(ActionEvent e){
         JButton a = (JButton) e.getSource();
         layoutDisplay(a);
     }
@@ -98,9 +100,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
 
-    /*
-    TODO: Where are these buttons being created? COMPLELTED: They are created as global variables so all methods can access them.
-     */
+
 
 
     public void layoutDisplay(AbstractButton a) {
@@ -125,7 +125,6 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
 
-        //TODO Create one of these for a separate LoginButton; COMPLETED: Added a login button
 
 
         else if(a == buttonStartNewGame) {
@@ -269,9 +268,7 @@ public class FoilMakerView extends JFrame implements ActionListener {
 
 
 
-    /*
-    TODO Where is the fourthSubPanel? COMPLETE: I added the fourthSubPanel in the method.
-     */
+
 
 
 
