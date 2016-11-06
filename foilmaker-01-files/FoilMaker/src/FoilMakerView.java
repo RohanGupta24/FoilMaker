@@ -70,18 +70,14 @@ public class FoilMakerView extends JFrame implements ActionListener{
 
     private void setUpGUI() {
         this.panelFirst = loginPage();
-
         frame.add(mainPanel);
         frame.setSize(300, 500);
         frame.setTitle("FoilMaker");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
         frame.setResizable(true);
         frame.setVisible(true);
         mainPanel.setLayout(layout);
         frame.setTitle("FoilMaker");
-
-
         mainPanel.add(panelFirst, "1");
         mainPanel.add(panelSecond, "2");
         mainPanel.add(panelThird, "3");
@@ -90,13 +86,12 @@ public class FoilMakerView extends JFrame implements ActionListener{
         mainPanel.add(panelSixth, "6");
         mainPanel.add(panelSeventh, "7");
         mainPanel.add(panelEighth, "8");
-
-
         layout.show(mainPanel, "1");
     }
 
     public void actionPerformed(ActionEvent e){
         JButton a = (JButton) e.getSource();
+        System.out.println("Hello");
         layoutDisplay(a);
     }
 
@@ -107,11 +102,16 @@ public class FoilMakerView extends JFrame implements ActionListener{
 
 
     public void layoutDisplay(AbstractButton a) {
+
+        System.out.println("layoutDisplay");
+
+
         if(a == buttonLogin) {
             boolean logged;
             do {
                 logged = controller.isLogged();
                 layout.show(mainPanel, "1");
+
             }
             while (logged == false);
             layout.show(mainPanel, "2");
@@ -125,11 +125,6 @@ public class FoilMakerView extends JFrame implements ActionListener{
             while(registered == false);
             layout.show(mainPanel, "2");
         }
-
-
-
-
-
         else if(a == buttonStartNewGame) {
             boolean gameStarted;
             do {

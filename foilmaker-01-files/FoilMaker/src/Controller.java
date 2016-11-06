@@ -22,7 +22,6 @@ public class Controller{
 
         view = new FoilMakerView();
 
-       // view.loginPage();
 
 
 
@@ -65,23 +64,22 @@ public class Controller{
 
         if(output.equals("RESPONSE--CREATENEWUSER--SUCCESS")){
             return true;
-        }else if(output.equals("RESPONSE--CREATENEWUSER--INVALIDMESSAGEFORMAT--CREATENEWUSER--" + username + "--" +
-                password)){
+        }else if(output.contains("INVALIDMESSAGEFORMAT")){
             view.setTitle("Invalid Message Format: Try again");
             return false;
-        }else if(output.equals("RESPONSE--CREATENEWUSER--INVALIDUSERNAME--CREATENEWUSER--" + username + "--" +
-                password)){
+        }else if(output.contains("INVALIDUSERNAME")){
             view.setTitle("Username empty");
             return false;
-        }else if(output.equals("RESPONSE--CREATENEWUSER--INVALIDUSERPASSWORD--CREATENEWUSER--" + username + "--" +
-                password)){
+        }else if(output.contains("INVALIDUSERPASSWORD")){
             view.setTitle("Password empty");
             return false;
-        }else if(output.equals("RESPONSE--CREATENEWUSER--USERALREADYEXISTS--CREATENEWUSER--" + username + "--" + password)){
+        }else if(output.contains("USERALREADYEXISTS")){
             view.setTitle("User already exists");
+        }else{
+            System.out.println("No input");
+            return false;
         }
 
-        System.out.println("isRegistered Error");
         return false;
     }
 
@@ -105,9 +103,12 @@ public class Controller{
             return false;
         }else if(output.contains("USERALREADYLOGGEDIN")){
             return false;
+        }else{
+            System.out.println("No input");
+            return false;
         }
 
-        return false;
+
     }
 
 
