@@ -69,11 +69,13 @@ public class FoilMakerView extends JFrame implements ActionListener{
     }
 
     private void setUpGUI() {
+        this.panelFirst = loginPage();
+
         frame.add(mainPanel);
         frame.setSize(300, 500);
         frame.setTitle("FoilMaker");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        layout.show(mainPanel, "1");
+
         frame.setResizable(true);
         frame.setVisible(true);
         mainPanel.setLayout(layout);
@@ -90,6 +92,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         mainPanel.add(panelEighth, "8");
 
 
+        layout.show(mainPanel, "1");
     }
 
     public void actionPerformed(ActionEvent e){
@@ -225,7 +228,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         subPanel3.add(buttonLogin);
         subPanel3.add(Box.createHorizontalStrut(1));
         subPanel3.add(buttonRegister);
-        buttonRegister.addActionListener(new FoilMakerView());
+        buttonRegister.addActionListener(this);
 
         return this.panelFirst;
     }
