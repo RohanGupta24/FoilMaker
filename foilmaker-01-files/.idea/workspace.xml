@@ -24,10 +24,11 @@
       <file leaf-file-name="FoilMakerView.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/FoilMaker/src/FoilMakerView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1050">
-              <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
+            <state relative-caret-position="420">
+              <caret line="63" column="80" selection-start-line="63" selection-start-column="80" selection-end-line="63" selection-end-column="80" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2221#2229#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -649,12 +650,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1477926538458</updated>
-      <workItem from="1478487231350" duration="433000" />
+      <workItem from="1478487231350" duration="764000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="433000" />
+    <option name="totallyTimeSpent" value="764000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1428" height="747" extended-state="0" />
@@ -733,6 +734,7 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2221#2229#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -792,6 +794,7 @@
           <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2221#2229#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -960,6 +963,7 @@
           <caret line="279" column="11" selection-start-line="279" selection-start-column="11" selection-end-line="279" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2221#2229#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -991,6 +995,7 @@
           <caret line="16" column="4" selection-start-line="16" selection-start-column="4" selection-end-line="16" selection-end-column="4" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2221#2229#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1162,10 +1167,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/FoilMaker/src/FoilMakerView.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1050">
-          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
+        <state relative-caret-position="420">
+          <caret line="63" column="80" selection-start-line="63" selection-start-column="80" selection-end-line="63" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#2221#2229#0" expanded="true" />
           </folding>
         </state>
       </provider>

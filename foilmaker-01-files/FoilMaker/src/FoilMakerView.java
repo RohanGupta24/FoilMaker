@@ -62,7 +62,7 @@ public class FoilMakerView implements ActionListener {
     private JButton buttonNextRound = new JButton("Next Round");
 
     private ArrayList<JRadioButton> optionsList = new ArrayList<JRadioButton>();
-    private ArrayList<JLabel> participantsList = new ArrayList<JLabel>();
+    private ArrayList<String> participantsList = new ArrayList<String>();
     
     public FoilMakerView(){
 
