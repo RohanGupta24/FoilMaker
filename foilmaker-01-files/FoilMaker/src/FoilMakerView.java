@@ -7,9 +7,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.border.Border;
+import java.util.ArrayList;
 
 
-public class FoilMakerView extends JFrame implements ActionListener{
+public class FoilMakerView implements ActionListener {
 
 
     Controller controller;
@@ -71,6 +72,10 @@ public class FoilMakerView extends JFrame implements ActionListener{
 
     }
 
+    public void actionPerformed(ActionEvent e) {
+
+    }
+
     private void setUpGUI() {
         this.panelFirst = loginPage();
         frame.add(mainPanel);
@@ -129,7 +134,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
             }
         }
         else if(a == buttonJoinAGame) {
-            boolean joinAGame = controller.isJoinAGame;
+            boolean joinAGame = controller.isJoinAGame();
             if(joinAGame == false) {
                 layout.show(mainPanel, "2");
             }
@@ -217,15 +222,15 @@ public class FoilMakerView extends JFrame implements ActionListener{
         passwordText = passwordBox.getText();
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
-        buttonLogin.addActionListener(new ActionListener {
-            public void actionPerformed(new ActionListener {
+        buttonLogin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
         });
         subPanel3.add(Box.createHorizontalStrut(1));
         subPanel3.add(buttonRegister);
-        buttonRegister.addActionListener(new ActionListener {
+        buttonRegister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
@@ -247,7 +252,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         secondSubPanel.add(buttonJoinAGame);
         JLabel descriptorBottom = new JLabel("Welcome!");
         mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-        buttonJoinAGame.addActionListener(new ActionListener {
+        buttonJoinAGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
@@ -275,7 +280,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         participants.setBorder(forParticipants);
         participants.setBackground(Color.orange);
         thirdSubPanel.add(buttonStartGame);
-        buttonStartGame.addActionListener(new ActionListener {
+        buttonStartGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
@@ -296,7 +301,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         fourthSubPanel.add(buttonJoinGame);
         JLabel descriptorBottom = new JLabel("Welcome!");
         mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-        buttonJoinGame.addActionListener(new ActionListener {
+        buttonJoinGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
@@ -348,7 +353,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         sixthSubPanel.add(buttonSubmitSuggestion);
         JLabel descriptorBottom = new JLabel("Enter your suggestion");
         mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-        buttonSubmitSuggestion.addActionListener(new ActionListener {
+        buttonSubmitSuggestion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a =(JButton) e.getSource();
                 layoutDisplay(a);
@@ -384,7 +389,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         seventhSubPanel.add(buttonSubmitOption);
         JLabel descriptorBottom = new JLabel("Pick your choice");
         mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-        buttonSubmitOption.addActionListener(new ActionListener {
+        buttonSubmitOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
@@ -410,7 +415,7 @@ public class FoilMakerView extends JFrame implements ActionListener{
         overallResults.setBorder(q);
         overallResults.setBackground(Color.orange);
         eightSubPanel.add(buttonNextRound);
-        buttonNextRound.addActionListener(new ActionListener {
+        buttonNextRound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
