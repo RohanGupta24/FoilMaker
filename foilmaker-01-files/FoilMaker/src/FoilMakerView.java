@@ -100,14 +100,16 @@ public class FoilMakerView implements ActionListener {
     public void layoutDisplay(AbstractButton a) {
 
         System.out.println("layoutDisplay");
-
+        System.out.println(a.getText());
 
         if(a == buttonLogin) {
             boolean logged = controller.isLogged();
             if(logged == false) {
+
                 layout.show(mainPanel, "1");
             }
             else {
+                optionToJoinOrStartPage();
                 layout.show(mainPanel, "2");
             }
         }
@@ -115,6 +117,7 @@ public class FoilMakerView implements ActionListener {
             boolean registered = controller.isRegistered();
             if(registered == false) {
                 layout.show(mainPanel, "1");
+
             }
             else {
                 layout.show(mainPanel, "1");
@@ -217,13 +220,17 @@ public class FoilMakerView implements ActionListener {
         subPanel2.add(passwordBox);
         subPanel2.setBounds(50,150,200,20);
         panelFirst.add(subPanel3);
-        //IMPORTANT: This retrieves username and password to record in server
-        usernameText = usernameBox.getText();
-        passwordText = passwordBox.getText();
+
+
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
         buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                //Moved the get text to button press
+                usernameText = usernameBox.getText();
+                passwordText = passwordBox.getText();
+                usernameBox.setText("");
+                passwordBox.setText("");
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
@@ -232,6 +239,13 @@ public class FoilMakerView implements ActionListener {
         subPanel3.add(buttonRegister);
         buttonRegister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                //Moved the get text to button press
+                usernameText = usernameBox.getText();
+                passwordText = passwordBox.getText();
+                usernameBox.setText("");
+                passwordBox.setText("");
+
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
@@ -450,6 +464,9 @@ public class FoilMakerView implements ActionListener {
     public String getPasswordText() {
         return this.passwordText;
     }
+
+    public void setUsernameText(String text) { this.usernameText = text;}
+
 
     public String getCheckKeyValidity() {
         return this.checkKeyValidity;

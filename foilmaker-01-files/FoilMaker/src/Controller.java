@@ -65,21 +65,23 @@ public class Controller{
         if(output.equals("RESPONSE--CREATENEWUSER--SUCCESS")){
             return true;
         }else if(output.contains("INVALIDMESSAGEFORMAT")){
-            view.setTitle("Invalid Message Format: Try again");
+
             return false;
         }else if(output.contains("INVALIDUSERNAME")){
-            view.setTitle("Username empty");
+
             return false;
         }else if(output.contains("INVALIDUSERPASSWORD")){
-            view.setTitle("Password empty");
+
             return false;
         }else if(output.contains("USERALREADYEXISTS")){
-            view.setTitle("User already exists");
+
         }else{
             System.out.println("No input");
             return false;
         }
 
+
+        System.out.println("Nothing");
         return false;
     }
 
@@ -88,7 +90,14 @@ public class Controller{
 
         String username = view.getUsernameText();
         String password = view.getPasswordText();
+
+
+        System.out.println("Username text: " + view.getUsernameText());
+        System.out.println("Passwrod text: " + view.getPasswordText());
+
         String output = connection("LOGIN--" + username + "--" + password);
+
+
 
         if(output.contains("SUCCESS")){
             this.model.setUserUsername(username);
@@ -98,6 +107,7 @@ public class Controller{
         }else if(output.contains("INVALIDMESSAGEFORMAT")){
             return false;
         }else if(output.contains("UNKNOWNUSER")){
+
             return false;
         }else if(output.contains("INVALIDUSERPASSWORD")){
             return false;
