@@ -105,49 +105,55 @@ public class FoilMakerView implements ActionListener {
         if(a == buttonLogin) {
             boolean logged = controller.isLogged();
             if(logged == false) {
+                loginPage();
                 layout.show(mainPanel, "1");
             }
             else {
+                optionToJoinOrStartPage();
                 layout.show(mainPanel, "2");
             }
         }
         else if(a == buttonRegister) {
             boolean registered = controller.isRegistered();
             if(registered == false) {
+                loginPage();
                 layout.show(mainPanel, "1");
             }
             else {
+                loginPage();
                 layout.show(mainPanel, "1");
-                JLabel descriptorBottom = new JLabel("New user created");
-                mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
             }
         }
         else if(a == buttonStartNewGame) {
             boolean gameStarted = controller.isNewGameStarted();
             if(gameStarted == false) {
+                optionToJoinOrStartPage();
                 layout.show(mainPanel, "2");
             }
             else {
+                displayParticipantsPage();
                 layout.show(mainPanel, "3");
-                JLabel descriptorBottom = new JLabel("Game started: You are the leader");
-                mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
             }
         }
         else if(a == buttonJoinAGame) {
             boolean joinAGame = controller.isJoinAGame();
             if(joinAGame == false) {
+                optionToJoinOrStartPage();
                 layout.show(mainPanel, "2");
             }
             else {
+                joinExistingGamePage();
                 layout.show(mainPanel, "4");
             }
         }
         else if(a == buttonStartGame) {
             boolean startGame = controller.isGameStarted();
             if(startGame == false) {
+                displayParticipantsPage();
                 layout.show(mainPanel, "3");
             }
             else {
+                wordIdentificationPage();
                 layout.show(mainPanel, "6");
             }
 
@@ -155,9 +161,11 @@ public class FoilMakerView implements ActionListener {
         else if(a == buttonJoinGame) {
             boolean joinGame = controller.isJoinGame();
             if(joinGame == false) {
+                joinExistingGamePage();
                 layout.show(mainPanel, "4");
             }
             else {
+                waitingLeaderPage();
                 layout.show(mainPanel, "5");
 
             }
@@ -165,27 +173,33 @@ public class FoilMakerView implements ActionListener {
         else if(a == buttonSubmitSuggestion) {
             boolean submitSuggestion = controller.isSubmitSuggestion();
             if(submitSuggestion == false) {
+                wordIdentificationPage();
                 layout.show(mainPanel, "6");
             }
             else {
+                pickOptionPage();
                 layout.show(mainPanel, "7");
             }
         }
         else if(a == buttonSubmitOption) {
             boolean submitOption = controller.isSubmitOption();
             if(submitOption == false) {
+                pickOptionPage();
                 layout.show(mainPanel, "7");
             }
             else {
+                resultsPage();
                 layout.show(mainPanel, "8");
             }
         }
         else if(a == buttonNextRound) {
             boolean nextRound = controller.isNextRound();
             if(nextRound == false) {
+                resultsPage();
                 layout.show(mainPanel, "8");
             }
             else {
+                wordIdentificationPage();
                 layout.show(mainPanel, "6");
             }
         }
@@ -218,13 +232,13 @@ public class FoilMakerView implements ActionListener {
         subPanel2.setBounds(50,150,200,20);
         panelFirst.add(subPanel3);
         //IMPORTANT: This retrieves username and password to record in server
-        usernameText = usernameBox.getText();
-        passwordText = passwordBox.getText();
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
         buttonLogin.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
+                usernameText = usernameBox.getText();
+                passwordText = passwordBox.getText();
                 layoutDisplay(a);
             }
         });
@@ -233,6 +247,10 @@ public class FoilMakerView implements ActionListener {
         buttonRegister.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
+                usernameText = usernameBox.getText();
+                passwordText = passwordBox.getText();
+                JLabel descriptorBottom = new JLabel("New user created");
+                mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
                 layoutDisplay(a);
             }
         });
@@ -258,6 +276,14 @@ public class FoilMakerView implements ActionListener {
                 layoutDisplay(a);
             }
         });
+        buttonStartNewGame.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JButton a = (JButton) e.getSource();
+                JLabel descriptorBottom = new JLabel("Game started: You are the leader");
+                mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
+                layoutDisplay(a);
+            }
+        }
     }
 
     public void displayParticipantsPage() {
@@ -297,13 +323,13 @@ public class FoilMakerView implements ActionListener {
         panelFourth.setBorder(rest);
         fourthSubPanel.add(gameKeyInstructions);
         fourthSubPanel.add(gameKey);
-        checkKeyValidity = gameKey.getText(); //The server should check to see if the game key is valid
         fourthSubPanel.add(buttonJoinGame);
         JLabel descriptorBottom = new JLabel("Welcome!");
         mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
         buttonJoinGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
+                checkKeyValidity = gameKey.getText(); //The server should check to see if the game key is valid
                 layoutDisplay(a);
             }
         });
