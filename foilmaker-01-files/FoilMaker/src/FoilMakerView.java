@@ -105,11 +105,7 @@ public class FoilMakerView implements ActionListener {
         if(a == buttonLogin) {
             boolean logged = controller.isLogged();
             if(logged == false) {
-<<<<<<< HEAD
-
-=======
                 loginPage();
->>>>>>> origin/master
                 layout.show(mainPanel, "1");
             }
             else {
@@ -236,12 +232,12 @@ public class FoilMakerView implements ActionListener {
         subPanel2.add(passwordBox);
         subPanel2.setBounds(50,150,200,20);
         panelFirst.add(subPanel3);
-<<<<<<< HEAD
 
 
-=======
+
+
         //IMPORTANT: This retrieves username and password to record in server
->>>>>>> origin/master
+
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
         buttonLogin.addActionListener(new ActionListener() {
@@ -252,8 +248,6 @@ public class FoilMakerView implements ActionListener {
                 usernameBox.setText("");
                 passwordBox.setText("");
                 JButton a = (JButton) e.getSource();
-                usernameText = usernameBox.getText();
-                passwordText = passwordBox.getText();
                 layoutDisplay(a);
             }
         });
@@ -269,8 +263,6 @@ public class FoilMakerView implements ActionListener {
                 passwordBox.setText("");
 
                 JButton a = (JButton) e.getSource();
-                usernameText = usernameBox.getText();
-                passwordText = passwordBox.getText();
                 JLabel descriptorBottom = new JLabel("New user created");
                 mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
                 layoutDisplay(a);
@@ -305,7 +297,7 @@ public class FoilMakerView implements ActionListener {
                 mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
                 layoutDisplay(a);
             }
-        }
+        });
     }
 
     public void displayParticipantsPage() {
