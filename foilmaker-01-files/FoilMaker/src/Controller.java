@@ -102,7 +102,8 @@ public class Controller{
         if(output.contains("SUCCESS")){
             this.model.setUserUsername(username);
             this.model.setUserPassword(password);
-            this.model.setGameToken(output.substring(output.lastIndexOf("-") + 1));
+            this.model.setUserToken(output.substring(output.lastIndexOf("-") + 1));
+            System.out.println("UserToken: " + this.model.getUserToken());
             return true;
         }else if(output.contains("INVALIDMESSAGEFORMAT")){
             return false;
@@ -128,12 +129,31 @@ public class Controller{
 
     public boolean isNewGameStarted(){
 
+
+
+        String userToken = this.model.getUserToken();
+
+        String connection = connection("STARTNEWGAME--" + userToken);
+
+        if(connection.contains("SUCCESS")){
+            String gameToken = connection.substring(connection.lastIndexOf('-') + 1);
+            this.view.setGameKeyText(gameToken);
+            this.model.setGameToken(gameToken);
+            return true;
+        }
+
+
         return true;
 
     }
 
 
     public boolean isJoinAGame(){
+
+
+
+
+
         return true;
     }
 
@@ -143,6 +163,19 @@ public class Controller{
     }
 
     public boolean isJoinGame(){
+
+        String userToken = this.model.getUserToken();
+        String gameToken = this.view.getCheckKeyValidity();
+
+
+        String output = connection("JOINGAME--" + userToken + "--" + gameToken);
+
+        if(output.contains("SUCCESS")){
+            this.model.setGameToken(gameToken);
+            return true;
+        }
+
+
         return false;
     }
 

@@ -162,6 +162,7 @@ public class FoilMakerView implements ActionListener {
         else if(a == buttonJoinGame) {
             boolean joinGame = controller.isJoinGame();
             if(joinGame == false) {
+
                 joinExistingGamePage();
                 layout.show(mainPanel, "4");
             }
@@ -286,6 +287,8 @@ public class FoilMakerView implements ActionListener {
         mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
         buttonJoinAGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
@@ -294,7 +297,11 @@ public class FoilMakerView implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 JLabel descriptorBottom = new JLabel("Game started: You are the leader");
+
+
+
                 mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
+
                 layoutDisplay(a);
             }
         });
@@ -343,6 +350,9 @@ public class FoilMakerView implements ActionListener {
         buttonJoinGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
+
+
+
                 checkKeyValidity = gameKey.getText(); //The server should check to see if the game key is valid
                 layoutDisplay(a);
             }
