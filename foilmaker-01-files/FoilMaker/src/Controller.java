@@ -199,7 +199,6 @@ public class Controller{
 
 
 
-
     public static String connection(String input){
 
 
@@ -212,6 +211,13 @@ public class Controller{
         }
 
         return "No return message for some reason";
+    }
+
+
+    public static String recieveJoinedUser(){
+
+
+        return null;
     }
 
 

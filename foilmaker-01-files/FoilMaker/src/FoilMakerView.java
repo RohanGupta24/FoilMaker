@@ -129,7 +129,7 @@ public class FoilMakerView implements ActionListener {
             }
         }
         else if(a == buttonStartNewGame) {
-            boolean gameStarted = controller.isNewGameStarted();
+            boolean gameStarted = controller.isNewGameStarted();/////////////////////here
             if(gameStarted == false) {
                 optionToJoinOrStartPage();
                 layout.show(mainPanel, "2");
@@ -137,6 +137,12 @@ public class FoilMakerView implements ActionListener {
             else {
                 displayParticipantsPage();
                 layout.show(mainPanel, "3");
+
+
+
+
+
+
             }
         }
         else if(a == buttonJoinAGame) {
@@ -296,7 +302,7 @@ public class FoilMakerView implements ActionListener {
                 layoutDisplay(a);
             }
         });
-        buttonStartNewGame.addActionListener(new ActionListener() {
+        buttonStartNewGame.addActionListener(new ActionListener() {     ////////////////////////Start here
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 JLabel descriptorBottom = new JLabel("Game started: You are the leader");
@@ -304,7 +310,6 @@ public class FoilMakerView implements ActionListener {
 
 
                 mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-
                 layoutDisplay(a);
             }
         });
