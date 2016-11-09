@@ -63,13 +63,13 @@ public class FoilMakerView implements ActionListener {
 
     private ArrayList<JRadioButton> optionsList = new ArrayList<JRadioButton>();
     private ArrayList<String> participantsList = new ArrayList<String>();
-<<<<<<< HEAD
+
 
 
     private JTextField gameKey;
-=======
+
     private ArrayList<String> suggestionsList = new ArrayList<String>();
->>>>>>> origin/master
+
     
     public FoilMakerView(){
 
@@ -309,18 +309,14 @@ public class FoilMakerView implements ActionListener {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
                 JLabel descriptorBottom = new JLabel("Game started: You are the leader");
-<<<<<<< Updated upstream
+
 
 
 
                 mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-<<<<<<< HEAD
-=======
 
-=======
                 frame.add(descriptorBottom, BorderLayout.PAGE_END);
->>>>>>> Stashed changes
->>>>>>> origin/master
+
                 layoutDisplay(a);
             }
         });
@@ -375,15 +371,13 @@ public class FoilMakerView implements ActionListener {
         frame.add(descriptorBottom, BorderLayout.PAGE_END);
         buttonJoinGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-<<<<<<< Updated upstream
+
+
                 JButton a = (JButton) e.getSource();
 
 
-
-=======
->>>>>>> Stashed changes
                 checkKeyValidity = gameKey.getText(); //The server should check to see if the game key is valid
-                JButton a = (JButton) e.getSource();
+                a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
         });
@@ -456,7 +450,7 @@ public class FoilMakerView implements ActionListener {
         ButtonGroup options = new ButtonGroup();
         (JRadioButton b: optionsList){
             options.add(b);
-        }
+        }                                           //////////////////What is happening here?
         seventhSubPanel.add(option1);
         seventhSubPanel.add(buttonSubmitOption);
         JLabel descriptorBottom = new JLabel("Pick your choice");
