@@ -10,6 +10,7 @@ public class Model {
     private String userPassword;        //Password the player submits
     private String userToken;
     private String gameToken;
+    private double userScore;
 
 
 
@@ -42,6 +43,10 @@ public class Model {
     public String getUserUsername(){ return this.userUsername;}
 
     public String getUserPassword() { return this.userPassword;}
+
+    public void setUserScore(double score){this.userScore = score;}
+
+    public double getUserScore(){ return this.userScore;}
 
 
 

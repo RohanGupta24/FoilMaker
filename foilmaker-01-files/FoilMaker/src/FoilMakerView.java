@@ -63,6 +63,9 @@ public class FoilMakerView implements ActionListener {
 
     private ArrayList<JRadioButton> optionsList = new ArrayList<JRadioButton>();
     private ArrayList<String> participantsList = new ArrayList<String>();
+
+
+    private JTextField gameKey;
     
     public FoilMakerView(){
 
@@ -163,7 +166,7 @@ public class FoilMakerView implements ActionListener {
             boolean joinGame = controller.isJoinGame();
             if(joinGame == false) {
 
-                joinExistingGamePage();
+                gameKey.setText("");
                 layout.show(mainPanel, "4");
             }
             else {
@@ -339,7 +342,7 @@ public class FoilMakerView implements ActionListener {
         //Server should provide game key to user
         JPanel fourthSubPanel = new JPanel(new GridLayout(3,1));
         JLabel gameKeyInstructions = new JLabel("Enter the game key to join a game");
-        JTextField gameKey = new JTextField();
+        gameKey = new JTextField();
         panelFourth.add(fourthSubPanel);
         panelFourth.setBorder(rest);
         fourthSubPanel.add(gameKeyInstructions);

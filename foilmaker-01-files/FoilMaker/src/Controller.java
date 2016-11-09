@@ -3,6 +3,7 @@
 
 import java.io.*;
 import java.net.Socket;
+import java.lang.*;
 
 
 
@@ -90,14 +91,9 @@ public class Controller{
 
         String username = view.getUsernameText();
         String password = view.getPasswordText();
-
-
         System.out.println("Username text: " + view.getUsernameText());
         System.out.println("Passwrod text: " + view.getPasswordText());
-
         String output = connection("LOGIN--" + username + "--" + password);
-
-
 
         if(output.contains("SUCCESS")){
             this.model.setUserUsername(username);
@@ -129,10 +125,7 @@ public class Controller{
 
     public boolean isNewGameStarted(){
 
-
-
         String userToken = this.model.getUserToken();
-
         String connection = connection("STARTNEWGAME--" + userToken);
 
         if(connection.contains("SUCCESS")){
@@ -140,20 +133,18 @@ public class Controller{
             this.view.setGameKeyText(gameToken);
             this.model.setGameToken(gameToken);
             return true;
+        }else if(connection.contains("USERNOTLOGGEDIN")){
+            System.out.println("Error isNewGameStarted Invalid User Token");
+            return false;
+        }else if(connection.contains("FAILURE")){
+            System.out.println("Error isNewGameStarted Failre error");
+            return false;
         }
-
-
-        return true;
-
+        return false;
     }
 
 
     public boolean isJoinAGame(){
-
-
-
-
-
         return true;
     }
 
@@ -166,16 +157,28 @@ public class Controller{
 
         String userToken = this.model.getUserToken();
         String gameToken = this.view.getCheckKeyValidity();
-
-
+        if(gameToken == null || gameToken.length() == 0){
+            gameToken = "this should not be a game token";
+        }
         String output = connection("JOINGAME--" + userToken + "--" + gameToken);
 
         if(output.contains("SUCCESS")){
             this.model.setGameToken(gameToken);
+            System.out.println(output);
+            String score = (output.substring(output.lastIndexOf("-") + 1));
+            System.out.println(score);
             return true;
+        }else if(output.contains("USERNOTLOGGEDIN")){
+            System.out.println("Invalid user Token");
+            return false;
+        }else if(output.contains("GAMEKEYNOTFOUND")){
+
+            System.out.println("Game key not found");
+            return false;
+        }else if(output.contains("FAILURE")){
+            System.out.println("User already playing game");
+            return false;
         }
-
-
         return false;
     }
 
