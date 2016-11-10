@@ -35,6 +35,8 @@ public class FoilMakerView implements ActionListener {
     private String checkKeyValidity;
     private String userSuggestion;
 
+    static private JTextField participantsTextField = new JTextField();
+
 
 
 
@@ -63,6 +65,9 @@ public class FoilMakerView implements ActionListener {
 
     private ArrayList<JRadioButton> optionsList = new ArrayList<JRadioButton>();
     private ArrayList<String> participantsList = new ArrayList<String>();
+
+
+    private JLabel messageBox = new JLabel();
 
 
 
@@ -101,12 +106,12 @@ public class FoilMakerView implements ActionListener {
         mainPanel.add(panelSeventh, "7");
         mainPanel.add(panelEighth, "8");
         layout.show(mainPanel, "1");
+        messageBox.setText("Welcome");
     }
 
     public void layoutDisplay(AbstractButton a) {
 
-        System.out.println("layoutDisplay");
-        System.out.println(a.getText());
+
 
         if(a == buttonLogin) {
             boolean logged = controller.isLogged();
@@ -124,6 +129,7 @@ public class FoilMakerView implements ActionListener {
             if(registered == false) {
                 loginPage();
                 layout.show(mainPanel, "1");
+                ;
 
             }
             else {
@@ -134,18 +140,22 @@ public class FoilMakerView implements ActionListener {
         else if(a == buttonStartNewGame) {
             boolean gameStarted = controller.isNewGameStarted();/////////////////////here
             if(gameStarted == false) {
+
+
                 optionToJoinOrStartPage();
                 layout.show(mainPanel, "2");
             }
             else {
+
                 displayParticipantsPage();
                 layout.show(mainPanel, "3");
 
-
-
-
-
-
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        controller.getPersons();
+                    }
+                }).start();
             }
         }
         else if(a == buttonJoinAGame) {
@@ -162,10 +172,14 @@ public class FoilMakerView implements ActionListener {
         else if(a == buttonStartGame) {
             boolean startGame = controller.isGameStarted();
             if(startGame == false) {
+
                 displayParticipantsPage();
                 layout.show(mainPanel, "3");
+
+
             }
             else {
+
                 wordIdentificationPage();
                 layout.show(mainPanel, "6");
             }
@@ -181,6 +195,7 @@ public class FoilMakerView implements ActionListener {
             else {
                 waitingLeaderPage();
                 layout.show(mainPanel, "5");
+
 
             }
         }
@@ -245,6 +260,7 @@ public class FoilMakerView implements ActionListener {
         subPanel2.add(passwordBox);
         subPanel2.setBounds(50,150,200,20);
         panelFirst.add(subPanel3);
+        frame.add(messageBox, BorderLayout.PAGE_END);
 
 
 
@@ -276,8 +292,8 @@ public class FoilMakerView implements ActionListener {
                 passwordBox.setText("");
 
                 JButton a = (JButton) e.getSource();
-                JLabel descriptorBottom = new JLabel("New user created");
-                frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
+
                 layoutDisplay(a);
             }
         });
@@ -295,8 +311,8 @@ public class FoilMakerView implements ActionListener {
         secondSubPanel.setBounds(50,200,200,20);
         secondSubPanel.add(buttonStartNewGame);
         secondSubPanel.add(buttonJoinAGame);
-        JLabel descriptorBottom = new JLabel("Welcome!");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+        messageBox.setText("Welcome!");
+        frame.add(messageBox, BorderLayout.PAGE_END);
         buttonJoinAGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -308,14 +324,7 @@ public class FoilMakerView implements ActionListener {
         buttonStartNewGame.addActionListener(new ActionListener() {     ////////////////////////Start here
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
-                JLabel descriptorBottom = new JLabel("Game started: You are the leader");
 
-
-
-
-                mainPanel.add(descriptorBottom, BorderLayout.PAGE_END);
-
-                frame.add(descriptorBottom, BorderLayout.PAGE_END);
 
                 layoutDisplay(a);
             }
@@ -328,6 +337,7 @@ public class FoilMakerView implements ActionListener {
         JLabel keyDescription = new JLabel("Others should use this key to join your game");
         JTextField key = new JTextField();
         JPanel participants = new JPanel();
+
         //Display participants and key to user (from server)
         panelThird.add(thirdSubPanel);
         panelThird.setBorder(rest);
@@ -341,14 +351,15 @@ public class FoilMakerView implements ActionListener {
         Border forParticipants = BorderFactory.createTitledBorder("Participants");
         participants.setBorder(forParticipants);
         participants.setBackground(Color.orange);
+        participants.add(participantsTextField);
         for(int i = 0; i < participantsList.size(); i++) {
             JLabel participantName = new JLabel(participantsList.get(i));
             participants.add(participantName);
         }
         thirdSubPanel.add(buttonStartGame);
+
         //if all participants have joined
-        JLabel descriptorBottom = new JLabel("Press <Start game> to start game");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
         buttonStartGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
@@ -367,8 +378,7 @@ public class FoilMakerView implements ActionListener {
         fourthSubPanel.add(gameKeyInstructions);
         fourthSubPanel.add(gameKey);
         fourthSubPanel.add(buttonJoinGame);
-        JLabel descriptorBottom = new JLabel("Welcome!");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
         buttonJoinGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -392,8 +402,7 @@ public class FoilMakerView implements ActionListener {
         panelFifth.add(fifthSubPanel);
         panelFifth.setBorder(rest);
         fifthSubPanel.add(waitingLeader);
-        JLabel descriptorBottom = new JLabel("Joined game: waiting for leader");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
         waitingLeader.setVerticalAlignment(waitingLeader.CENTER);
         //Server does work here in order to switch to new Panel
         //Once ready, switch to Panel 6
@@ -425,8 +434,7 @@ public class FoilMakerView implements ActionListener {
         //IMPORTANT: Record userSuggestion in server
         userSuggestion = suggestionBox.getText();
         sixthSubPanel.add(buttonSubmitSuggestion);
-        JLabel descriptorBottom = new JLabel("Enter your suggestion");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
         buttonSubmitSuggestion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a =(JButton) e.getSource();
@@ -448,13 +456,12 @@ public class FoilMakerView implements ActionListener {
         panelSeventh.setBorder(rest);
         seventhSubPanel.add(pickOptionDescription);
         ButtonGroup options = new ButtonGroup();
-        (JRadioButton b: optionsList){
+        for(JRadioButton b: optionsList){
             options.add(b);
-        }                                           //////////////////What is happening here?
-        seventhSubPanel.add(option1);
+        }
+
         seventhSubPanel.add(buttonSubmitOption);
-        JLabel descriptorBottom = new JLabel("Pick your choice");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
         buttonSubmitOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
@@ -482,11 +489,8 @@ public class FoilMakerView implements ActionListener {
         overallResults.setBackground(Color.orange);
         eightSubPanel.add(buttonNextRound);
         //if server still has more words
-        JLabel descriptorBottom = new JLabel("Click <Next Round> when ready");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
+
         //otherwise
-        descriptorBottom.setText("Game over!");
-        frame.add(descriptorBottom, BorderLayout.PAGE_END);
         buttonNextRound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
@@ -533,4 +537,23 @@ public class FoilMakerView implements ActionListener {
     public String getUserSuggestion() {
         return this.userSuggestion;
     }
+
+    public void setParticipantsTextField(String participantsTextField){
+
+        this.participantsTextField.setText(participantsTextField);
+
+        layout.show(mainPanel,"3");
+        //mainPanel.updateUI();
+        panelThird.updateUI();
+    }
+
+
+    public void setMessageBox(String message){
+        this.messageBox.setText(message);
+        mainPanel.updateUI();
+        panelFirst.updateUI();
+    }
+
+
+
 }

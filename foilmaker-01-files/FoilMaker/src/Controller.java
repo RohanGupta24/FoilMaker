@@ -64,6 +64,7 @@ public class Controller{
 
 
         if(output.equals("RESPONSE--CREATENEWUSER--SUCCESS")){
+            this.view.setMessageBox("New User Created");
             return true;
         }else if(output.contains("INVALIDMESSAGEFORMAT")){
 
@@ -102,6 +103,7 @@ public class Controller{
             System.out.println("UserToken: " + this.model.getUserToken());
             return true;
         }else if(output.contains("INVALIDMESSAGEFORMAT")){
+            this.view.setMessageBox("Invalid Message Format");
             return false;
         }else if(output.contains("UNKNOWNUSER")){
 
@@ -132,6 +134,7 @@ public class Controller{
             String gameToken = connection.substring(connection.lastIndexOf('-') + 1);
             this.view.setGameKeyText(gameToken);
             this.model.setGameToken(gameToken);
+
             return true;
         }else if(connection.contains("USERNOTLOGGEDIN")){
             System.out.println("Error isNewGameStarted Invalid User Token");
@@ -150,7 +153,7 @@ public class Controller{
 
 
     public boolean isGameStarted(){
-        return false;
+        return true;
     }
 
     public boolean isJoinGame(){
@@ -166,6 +169,8 @@ public class Controller{
             this.model.setGameToken(gameToken);
             System.out.println(output);
             String score = (output.substring(output.lastIndexOf("-") + 1));
+            this.view.setMessageBox("Waiting");
+
             System.out.println(score);
             return true;
         }else if(output.contains("USERNOTLOGGEDIN")){
@@ -205,6 +210,7 @@ public class Controller{
         try {
             server.println(input);
             String serverMessage = in.readLine();
+            //in.close();
             return serverMessage;
         } catch (IOException e) {
             e.printStackTrace();
@@ -214,10 +220,32 @@ public class Controller{
     }
 
 
-    public static String recieveJoinedUser(){
+    public void getPersons(){
+
+        System.out.println("Inside getPersons");
+
+        try{
+
+            System.out.println("Inside Try");
+
+            String line;
 
 
-        return null;
+            while ((line = in.readLine()) != null) {
+                System.out.println(line);
+                this.view.setParticipantsTextField(line);
+                this.view.setMessageBox("New User Added");
+
+            }
+
+
+            System.out.println("After Try");
+
+        }catch (IOException e){
+            System.out.println(e.getStackTrace());
+        }
+
+
     }
 
 

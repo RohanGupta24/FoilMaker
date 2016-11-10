@@ -12,6 +12,8 @@ public class Model {
     private String gameToken;
     private double userScore;
 
+    private String participants;
+
 
 
 
@@ -48,6 +50,14 @@ public class Model {
 
     public double getUserScore(){ return this.userScore;}
 
+
+    public void addParticipant(String participant){
+        this.participants += participant;
+    }
+
+    public String getParticipants(){
+        return this.participants;
+    }
 
 
 
