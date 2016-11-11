@@ -96,7 +96,6 @@ public class Controller{
 
     public boolean isLogged() {
 
-
         String username = view.getUsernameText();
         String password = view.getPasswordText();
         System.out.println("Username text: " + view.getUsernameText());
@@ -108,6 +107,7 @@ public class Controller{
             this.model.setUserPassword(password);
             this.model.setUserToken(output.substring(output.lastIndexOf("-") + 1));
             System.out.println("UserToken: " + this.model.getUserToken());
+            this.view.setMessageBox("You are now logged in!");
             return true;
         }else if(output.contains("INVALIDMESSAGEFORMAT")){
             this.view.setMessageBox("Invalid Message Format");
@@ -134,6 +134,7 @@ public class Controller{
 
     public boolean isNewGameStarted(){
 
+        this.view.setMessageBox("Welcome!");
         String userToken = this.model.getUserToken();
         String connection = connection("STARTNEWGAME--" + userToken);
 
@@ -148,7 +149,7 @@ public class Controller{
 
             this.view.setGameKeyText(gameToken);
             this.model.setGameToken(gameToken);
-
+            this.view.setMessageBox("You started a game");
             return true;
         }else if(connection.contains("USERNOTLOGGEDIN")){
             System.out.println("Error isNewGameStarted Invalid User Token");
@@ -167,6 +168,7 @@ public class Controller{
 
 
     public boolean isGameStarted(){
+<<<<<<< HEAD
 
         String userToken = this.model.getUserToken();
         String gameToken = this.model.getGameToken();
@@ -194,11 +196,15 @@ public class Controller{
 
 
 
+=======
+        this.view.setMessageBox("Press <Start Game> to start game");
+>>>>>>> origin/master
         return true;
     }
 
     public boolean isJoinGame(){
 
+        this.view.setMessageBox("Welcome");
         String userToken = this.model.getUserToken();
         String gameToken = this.view.getCheckKeyValidity();
         if(gameToken == null || gameToken.length() == 0){
@@ -210,7 +216,7 @@ public class Controller{
             this.model.setGameToken(gameToken);
             System.out.println(output);
             String score = (output.substring(output.lastIndexOf("-") + 1));
-            this.view.setMessageBox("Waiting");
+            this.view.setMessageBox("Joined game: waiting for leader");
 
             System.out.println("Score: "+ score);
             return true;
@@ -229,6 +235,7 @@ public class Controller{
     }
 
     public boolean isSubmitSuggestion(){
+<<<<<<< HEAD
 
 
 
@@ -357,6 +364,15 @@ public class Controller{
 
 
         return true;
+=======
+        this.view.setMessageBox("Enter your suggestion");
+        return false;
+    }
+
+    public boolean isSubmitOption(){
+        this.view.setMessageBox("Pick your choice")
+        return false;
+>>>>>>> origin/master
     }
 
     public boolean isNextRound(){
