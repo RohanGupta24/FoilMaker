@@ -168,7 +168,7 @@ public class Controller{
 
 
     public boolean isGameStarted(){
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
         String userToken = this.model.getUserToken();
         String gameToken = this.model.getGameToken();
@@ -196,9 +196,8 @@ public class Controller{
 
 
 
-=======
         this.view.setMessageBox("Press <Start Game> to start game");
->>>>>>> origin/master
+//>>>>>>> origin/master
         return true;
     }
 
@@ -235,7 +234,7 @@ public class Controller{
     }
 
     public boolean isSubmitSuggestion(){
-<<<<<<< HEAD
+//<<<<<<< HEAD
 
 
 
@@ -364,16 +363,14 @@ public class Controller{
 
 
         return true;
-=======
-        this.view.setMessageBox("Enter your suggestion");
-        return false;
+        //this.view.setMessageBox("Enter your suggestion");
+        //return false;
     }
 
-    public boolean isSubmitOption(){
-        this.view.setMessageBox("Pick your choice")
+    /*public boolean isSubmitOption() {
+        this.view.setMessageBox("Pick your choice");
         return false;
->>>>>>> origin/master
-    }
+    }*/
 
     public boolean isNextRound(){
         return false;
