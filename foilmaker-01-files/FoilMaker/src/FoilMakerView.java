@@ -110,7 +110,7 @@ public class FoilMakerView implements ActionListener {
         mainPanel.add(panelEighth, "8");
         layout.show(mainPanel, "1");
         messageBox.setText("Welcome");
-        mainPanel.setTitle(usernameText);
+        //mainPanel.setTitle(usernameText);
         frame.add(messageBox, BorderLayout.PAGE_END);
     }
 
@@ -483,7 +483,7 @@ public class FoilMakerView implements ActionListener {
         Border suggestionBorder = BorderFactory.createTitledBorder("Your Suggestion");
         suggestion.setBorder(suggestionBorder);
         suggestion.add(suggestionBox);
-        suggestion.pack();
+        //suggestion.pack();
         //IMPORTANT: Record userSuggestion in server
 
         System.out.println("UserSuggestion" + userSuggestion);
