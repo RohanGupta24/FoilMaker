@@ -11,8 +11,10 @@ public class Model {
     private String userToken;
     private String gameToken;
     private double userScore;
+    private String rightAnswer;
 
     private String participants;
+    private String wordGuess;
 
 
 
@@ -57,6 +59,20 @@ public class Model {
 
     public String getParticipants(){
         return this.participants;
+    }
+
+    public void setWordGuess(String guess) { this.wordGuess = guess;}
+
+    public String getWordGuess(){
+        return this.wordGuess.substring(this.wordGuess.indexOf("-"), this.wordGuess.lastIndexOf("-"));
+    }
+
+    public String getRightAnswer(){
+        return this.rightAnswer;
+    }
+
+    public void setRightAnswer(String message){
+        this.rightAnswer = message;
     }
 
 

@@ -36,7 +36,8 @@ public class FoilMakerView implements ActionListener {
     private String userSuggestion;
 
     static private JTextField participantsTextField = new JTextField();
-
+    static private String userChoice;
+    static private JTextField suggestionBox = new JTextField();
 
 
 
@@ -51,6 +52,7 @@ public class FoilMakerView implements ActionListener {
 
     private Border p1 = BorderFactory.createTitledBorder("FoilMaker!");
     private Border rest =  BorderFactory.createTitledBorder(usernameText);
+    private boolean isGameOver;
 
 
     private JButton buttonLogin = new JButton("Login");
@@ -138,7 +140,7 @@ public class FoilMakerView implements ActionListener {
             }
         }
         else if(a == buttonStartNewGame) {
-            boolean gameStarted = controller.isNewGameStarted();/////////////////////here
+            boolean gameStarted = controller.isNewGameStarted();
             if(gameStarted == false) {
 
 
@@ -147,15 +149,28 @@ public class FoilMakerView implements ActionListener {
             }
             else {
 
+
+                Thread waitForQuestion = new Thread(){
+
+                    public void run(){
+                        startGetParticipants();
+
+                        panelThird.updateUI();
+                        layout.show(mainPanel,"3");
+                    }
+                };
+
+                waitForQuestion.start();
+
+
+
                 displayParticipantsPage();
                 layout.show(mainPanel, "3");
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        controller.getPersons();
-                    }
-                }).start();
+
+
+
+
             }
         }
         else if(a == buttonJoinAGame) {
@@ -176,12 +191,15 @@ public class FoilMakerView implements ActionListener {
                 displayParticipantsPage();
                 layout.show(mainPanel, "3");
 
-
             }
             else {
 
+
                 wordIdentificationPage();
-                layout.show(mainPanel, "6");
+               layout.show(mainPanel, "6");
+
+
+
             }
 
         }
@@ -193,19 +211,52 @@ public class FoilMakerView implements ActionListener {
                 layout.show(mainPanel, "4");
             }
             else {
+
+
+
                 waitingLeaderPage();
                 layout.show(mainPanel, "5");
+
+                Thread waitForQuestion = new Thread(){
+
+                    public void run(){
+                        String serverMessage = getServerResponse();
+                        System.out.println("In thread: " + serverMessage);
+
+                        setWordClueText(serverMessage.substring(serverMessage.indexOf('-') + 2, serverMessage
+                                .lastIndexOf('-') - 1));
+                        wordIdentificationPage();
+                        layout.show(mainPanel,"6");
+                    }
+                };
+
+                waitForQuestion.start();
 
 
             }
         }
         else if(a == buttonSubmitSuggestion) {
             boolean submitSuggestion = controller.isSubmitSuggestion();
+
+            if(getUserSuggestion().equals(this.controller.getRightAnswer())){
+                messageBox.setText("Choose a different answer");
+                mainPanel.updateUI();
+                panelSixth.updateUI();
+                layout.show(mainPanel, "6");
+
+            }
+
+
             if(submitSuggestion == false) {
-                wordIdentificationPage();
+                mainPanel.updateUI();
+                panelSixth.updateUI();
                 layout.show(mainPanel, "6");
             }
             else {
+
+
+
+
                 pickOptionPage();
                 layout.show(mainPanel, "7");
             }
@@ -217,21 +268,16 @@ public class FoilMakerView implements ActionListener {
                 layout.show(mainPanel, "7");
             }
             else {
+
+
+
+
+
                 resultsPage();
                 layout.show(mainPanel, "8");
             }
         }
-        else if(a == buttonNextRound) {
-            boolean nextRound = controller.isNextRound();
-            if(nextRound == false) {
-                resultsPage();
-                layout.show(mainPanel, "8");
-            }
-            else {
-                wordIdentificationPage();
-                layout.show(mainPanel, "6");
-            }
-        }
+
     }
 
     public JPanel loginPage() {
@@ -265,7 +311,7 @@ public class FoilMakerView implements ActionListener {
 
 
 
-        //IMPORTANT: This retrieves username and password to record in server
+
 
         subPanel3.setBounds(50,300,200,20);
         subPanel3.add(buttonLogin);
@@ -321,7 +367,7 @@ public class FoilMakerView implements ActionListener {
                 layoutDisplay(a);
             }
         });
-        buttonStartNewGame.addActionListener(new ActionListener() {     ////////////////////////Start here
+        buttonStartNewGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
 
@@ -362,6 +408,8 @@ public class FoilMakerView implements ActionListener {
 
         buttonStartGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
@@ -414,7 +462,12 @@ public class FoilMakerView implements ActionListener {
         JPanel wordIdentification = new JPanel();
         JLabel wordClue = new JLabel();
         JPanel suggestion = new JPanel();
-        JTextField suggestionBox = new JTextField();
+
+        suggestionBox.setVisible(true);
+        suggestionBox.setMinimumSize(new Dimension());
+        sixthSubPanel.validate();
+        sixthSubPanel.repaint();
+        suggestionBox.setSelectionColor(Color.BLACK);
         JLabel wordIdentifcationInstructions = new JLabel("What is the word for");
         //Server is supposed to have a word identifier phrase in the "wordIdentification" panel
         // and is supposed to record the user's suggestion that will then be used in the next panel
@@ -432,11 +485,20 @@ public class FoilMakerView implements ActionListener {
         suggestion.setBorder(suggestionBorder);
         suggestion.add(suggestionBox);
         //IMPORTANT: Record userSuggestion in server
-        userSuggestion = suggestionBox.getText();
+
+        System.out.println("UserSuggestion" + userSuggestion);
         sixthSubPanel.add(buttonSubmitSuggestion);
+
+        sixthSubPanel.updateUI();
 
         buttonSubmitSuggestion.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+
+
+
+
+                userSuggestion = suggestionBox.getText();
                 JButton a =(JButton) e.getSource();
                 layoutDisplay(a);
             }
@@ -447,8 +509,8 @@ public class FoilMakerView implements ActionListener {
 
         JPanel seventhSubPanel = new JPanel(new GridLayout(5,1));
         JLabel pickOptionDescription = new JLabel("Pick your option below");
-        for(int i = 0; i < participantsList.size(); i++) {
-            optionsList.add(new JRadioButton(suggestionsList.get(i)));
+        for(int i = 0; i < optionsList.size(); i++) {
+            seventhSubPanel.add(optionsList.get(i));
         }
         //Display the suggestions recorded in the previous panel in the text for
         // the Radio Buttons
@@ -464,6 +526,14 @@ public class FoilMakerView implements ActionListener {
 
         buttonSubmitOption.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+
+                for(int i = 0; i < optionsList.size(); i ++){
+                    if(optionsList.get(i).isSelected()){
+                        userChoice = optionsList.get(i).getText();
+                    }
+                }
+
+
                 JButton a = (JButton) e.getSource();
                 layoutDisplay(a);
             }
@@ -474,7 +544,19 @@ public class FoilMakerView implements ActionListener {
 
         JPanel eightSubPanel = new JPanel(new GridLayout(3,1));
         JPanel roundResult = new JPanel();
+        JTextField roundResultText = new JTextField();
+        roundResult.add(roundResultText);
+        roundResultText.setText(this.controller.getRoundResult());
         JPanel overallResults = new JPanel();
+        JTextField overallResultText = new JTextField();
+        overallResults.add(overallResultText);
+        overallResultText.setText(this.controller.getOverallResult());
+
+        roundResultText.setEditable(false);
+        overallResultText.setEditable(false);
+
+
+
         //Server displays round results and overall results in each of the panels
         // called "roundResult" and "overallResults"
         panelEighth.add(eightSubPanel);
@@ -490,11 +572,22 @@ public class FoilMakerView implements ActionListener {
         eightSubPanel.add(buttonNextRound);
         //if server still has more words
 
+        if(isGameOver == true){
+            buttonNextRound.setEnabled(false);
+        }
+
+
+
+
         //otherwise
         buttonNextRound.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 JButton a = (JButton) e.getSource();
-                layoutDisplay(a);
+
+                //9wordIdentificationPage();
+                layout.show(mainPanel,"6");
+
+
             }
         });
     }
@@ -543,9 +636,10 @@ public class FoilMakerView implements ActionListener {
         this.participantsTextField.setText(participantsTextField);
 
         layout.show(mainPanel,"3");
-        //mainPanel.updateUI();
         panelThird.updateUI();
     }
+
+
 
 
     public void setMessageBox(String message){
@@ -554,6 +648,43 @@ public class FoilMakerView implements ActionListener {
         panelFirst.updateUI();
     }
 
+
+    public String getServerResponse(){
+        return this.controller.getServerResponse();
+    }
+
+    public void startGetParticipants(){
+        this.controller.getPersons();
+    }
+
+    public void getLeaderQuestion(){
+        this.controller.getLeaderQuestion();
+    }
+
+
+    public void addOption(String option){
+
+        JRadioButton temp = new JRadioButton(option);
+
+        optionsList.add(temp);
+
+    }
+
+    public String getUserChoice(){
+        return userChoice;
+    }
+
+    public void setOver(boolean over){
+        this.isGameOver = over;
+    }
+
+    public void setSuggestionBox(String message){
+        suggestionBox.setText(message);
+    }
+
+    public void setOptionsList(){
+        optionsList.clear();
+    }
 
 
 }
