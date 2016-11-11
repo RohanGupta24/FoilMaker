@@ -40,14 +40,14 @@ public class FoilMakerView implements ActionListener {
 
 
 
-    private JPanel panelFirst = new JPanel();
-    private JPanel panelSecond = new JPanel();
-    private JPanel panelThird = new JPanel();
-    private JPanel panelFourth = new JPanel();
-    private JPanel panelFifth = new JPanel();
-    private JPanel panelSixth = new JPanel();
-    private JPanel panelSeventh = new JPanel();
-    private JPanel panelEighth = new JPanel();
+    private JPanel panelFirst = new JPanel(new BorderLayout());
+    private JPanel panelSecond = new JPanel(new BorderLayout());
+    private JPanel panelThird = new JPanel(new BorderLayout());
+    private JPanel panelFourth = new JPanel(new BorderLayout());
+    private JPanel panelFifth = new JPanel(new BorderLayout());
+    private JPanel panelSixth = new JPanel(new BorderLayout());
+    private JPanel panelSeventh = new JPanel(new BorderLayout());
+    private JPanel panelEighth = new JPanel(new BorderLayout());
 
     private Border p1 = BorderFactory.createTitledBorder("FoilMaker!");
     private Border rest =  BorderFactory.createTitledBorder(usernameText);
@@ -96,6 +96,7 @@ public class FoilMakerView implements ActionListener {
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setResizable(true);
         frame.setVisible(true);
+        frame.pack();
         mainPanel.setLayout(layout);
         mainPanel.add(panelFirst, "1");
         mainPanel.add(panelSecond, "2");
@@ -107,6 +108,8 @@ public class FoilMakerView implements ActionListener {
         mainPanel.add(panelEighth, "8");
         layout.show(mainPanel, "1");
         messageBox.setText("Welcome");
+        mainPanel.setTitle(usernameText);
+        frame.add(messageBox, BorderLayout.PAGE_END);
     }
 
     public void layoutDisplay(AbstractButton a) {
@@ -260,7 +263,6 @@ public class FoilMakerView implements ActionListener {
         subPanel2.add(passwordBox);
         subPanel2.setBounds(50,150,200,20);
         panelFirst.add(subPanel3);
-        frame.add(messageBox, BorderLayout.PAGE_END);
 
 
 
@@ -312,7 +314,6 @@ public class FoilMakerView implements ActionListener {
         secondSubPanel.add(buttonStartNewGame);
         secondSubPanel.add(buttonJoinAGame);
         messageBox.setText("Welcome!");
-        frame.add(messageBox, BorderLayout.PAGE_END);
         buttonJoinAGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
 
@@ -401,9 +402,7 @@ public class FoilMakerView implements ActionListener {
         //Server is supposed to recognize when the leader has entered the game
         panelFifth.add(fifthSubPanel);
         panelFifth.setBorder(rest);
-        fifthSubPanel.add(waitingLeader);
-
-        waitingLeader.setVerticalAlignment(waitingLeader.CENTER);
+        fifthSubPanel.add(waitingLeader, BorderLayout.CENTER);
         //Server does work here in order to switch to new Panel
         //Once ready, switch to Panel 6
     }
@@ -431,6 +430,7 @@ public class FoilMakerView implements ActionListener {
         Border suggestionBorder = BorderFactory.createTitledBorder("Your Suggestion");
         suggestion.setBorder(suggestionBorder);
         suggestion.add(suggestionBox);
+        suggestion.pack();
         //IMPORTANT: Record userSuggestion in server
         userSuggestion = suggestionBox.getText();
         sixthSubPanel.add(buttonSubmitSuggestion);
@@ -452,7 +452,8 @@ public class FoilMakerView implements ActionListener {
         }
         //Display the suggestions recorded in the previous panel in the text for
         // the Radio Buttons
-        panelSeventh.add(seventhSubPanel);
+        panelSeventh.setLayout(new BorderLayout());
+        panelSeventh.add(seventhSubPanel, BorderLayout.CENTER);
         panelSeventh.setBorder(rest);
         seventhSubPanel.add(pickOptionDescription);
         ButtonGroup options = new ButtonGroup();
