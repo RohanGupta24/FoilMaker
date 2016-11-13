@@ -168,11 +168,7 @@ public class Controller{
 
 
     public boolean isGameStarted(){
-<<<<<<< HEAD
-//<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 
         String userToken = this.model.getUserToken();
         String gameToken = this.model.getGameToken();
@@ -200,14 +196,13 @@ public class Controller{
 
 
 
-<<<<<<< HEAD
-        this.view.setMessageBox("Press <Start Game> to start game");
-//>>>>>>> origin/master
-=======
 
         this.view.setMessageBox("Press <Start Game> to start game");
 
->>>>>>> origin/master
+
+        this.view.setMessageBox("Press <Start Game> to start game");
+
+
         return true;
     }
 
@@ -244,11 +239,7 @@ public class Controller{
     }
 
     public boolean isSubmitSuggestion(){
-<<<<<<< HEAD
-//<<<<<<< HEAD
-=======
 
->>>>>>> origin/master
 
 
 
@@ -287,7 +278,7 @@ public class Controller{
                 continue;
             }
 
-                this.view.addOption(split[i]);
+                this.view.setOptionsListText(split[i],i-1);
 
 
         }
@@ -297,111 +288,147 @@ public class Controller{
         return true;
     }
 
-    public boolean isSubmitOption(){
+    public boolean isSubmitOption() {
 
-        String userToken = this.model.getUserToken();
-        String gameToken = this.model.getGameToken();
+        if (this.view.getTime() < 1) {
+            String userToken = this.model.getUserToken();
+            String gameToken = this.model.getGameToken();
 
-        String connection = connection("PLAYERCHOICE--" + userToken + "--" + gameToken + "--" + this.view
-                .getUserChoice());
+            String connection = connection("PLAYERCHOICE--" + userToken + "--" + gameToken + "--" + this.view
+                    .getUserChoice());
 
-        System.out.println(connection);
-
-
-        String[] split;
-        split = connection.split("--");
+            System.out.println(connection);
 
 
-        for(int i = 0; i < split.length;i++){
+            String[] split;
 
-            if(split[i].equals(this.model.getUserUsername())){
+            split = connection.split("--");
 
-                roundResult = split[i + 1];
 
-                overallResult += this.model.getUserUsername() + " -> Score: " + split[i+2] + " | Fooled: " +
-                        split[i+3] + " players(s) | Fooled by: " + split[i+4] + " players(s)\n";
+            for (int i = 0; i < split.length; i++) {
 
+                if (split[i].equals(this.model.getUserUsername())) {
+
+                    roundResult = split[i + 1];
+
+                    overallResult += this.model.getUserUsername() + " -> Score: " + split[i + 2] + " | Fooled: " +
+                            split[i + 3] + " players(s) | Fooled by: " + split[i + 4] + " players(s)\n";
+
+                    if ((i < 4)) {
+                        overallResult += split[i + 5] + " -> Score: " + split[i + 7] + " | Fooled: " +
+                                split[i + 8] + " players(s) | Fooled by: " + split[i + 9] + " players(s)\n";
+                    }
+
+                    if ((i) > 4) {
+                        overallResult += split[i - 5] + " -> Score: " + split[i - 3] + " | Fooled: " +
+                                split[i - 2] + " players(s) | Fooled by: " + split[i - 1] + " players(s)\n";
+                    }
+
+
+                    break;
+
+                }
 
             }
 
-        }
+            System.out.println(connection);
+            Thread waitForQuit = new Thread() {
 
+                public void run() {
 
-
-        System.out.println(connection);
-
-
-        Thread waitForQuit = new Thread(){
-
-            public void run(){
-
-                String quit = "";
-                while(true){
-
-                    try{
-
-                        quit = in.readLine();
-                        if(quit.length() > 0){
-                            System.out.println("Message: " + quit);
-                            break;
+                    String quit = "";
+                    while (true) {
+                        try {
+                            quit = in.readLine();
+                            if (quit.length() > 0) {
+                                System.out.println("Message: " + quit);
+                                break;
+                            }
+                        } catch (IOException e) {
+                            e.getStackTrace();
                         }
+                    }
 
-                    }catch (IOException e){
-                        e.getStackTrace();
+
+                    if (quit.contains("GAMEOVER")) {
+
+                        setMessageBox("Game Over");
+                        setOver(true);
+                        System.out.println("Game Over is true");
+                        setMessageBox("Game Over");
+
+                    } else {
+
+                        System.out.println(quit.substring(quit.indexOf('-') + 2, quit.lastIndexOf('-')
+                                - 1));
+
+                        setWordSuggestion(quit.substring(quit.indexOf('-') + 2, quit.lastIndexOf('-')
+                                - 1));
+
+
+                    }
+                    System.out.println("Out of thread");
+                }
+
+            };
+
+            waitForQuit.start();
+            this.view.setSuggestionBox("");
+            return true;
+
+        }else{
+
+            String userToken = this.model.getUserToken();
+            String gameToken = this.model.getGameToken();
+
+            String connection = connection("PLAYERCHOICE--" + userToken + "--" + gameToken + "--" + this.view
+                    .getUserChoice());
+
+            System.out.println(connection);
+
+
+            String[] split;
+
+            split = connection.split("--");
+
+            overallResult = "";
+            for (int i = 0; i < split.length; i++) {
+
+                if (split[i].equals(this.model.getUserUsername())) {
+
+                    roundResult = split[i + 1];
+
+                    overallResult += this.model.getUserUsername() + " -> Score: " + split[i + 2] + " | Fooled: " +
+                            split[i + 3] + " players(s) | Fooled by: " + split[i + 4] + " players(s)\n";
+
+                    if ((i < 4)) {
+                        overallResult += split[i + 5] + " -> Score: " + split[i + 7] + " | Fooled: " +
+                                split[i + 8] + " players(s) | Fooled by: " + split[i + 9] + " players(s)\n";
+                    }
+
+                    if ((i) > 4) {
+                        overallResult += split[i - 5] + " -> Score: " + split[i - 3] + " | Fooled: " +
+                                split[i - 2] + " players(s) | Fooled by: " + split[i - 1] + " players(s)\n";
                     }
 
 
 
-                }
+                    this.view.setResults(roundResult,overallResult);
 
-                if(quit.contains("QUIT")){
-
-                    setOver(false);
+                    break;
 
                 }
-
 
             }
-        };
-
-        waitForQuit.start();
 
 
+            setMessageBox("Game Over");
+            return true;
+
+        }
 
 
-        this.view.setWordClueText(connection.substring(connection.indexOf('-') + 1, connection.lastIndexOf('-') - 1));
-        this.view.setSuggestionBox("");
-        this.view.setOptionsList();
-
-
-
-<<<<<<< HEAD
-
-        return true;
-        //this.view.setMessageBox("Enter your suggestion");
-        //return false;
     }
-
-    /*public boolean isSubmitOption() {
-        this.view.setMessageBox("Pick your choice");
-        return false;
-    }*/
-=======
-        this.view.setMessageBox("Enter your suggestion");
-        return false;
-    }
-
-
->>>>>>> origin/master
-
-    public boolean isNextRound(){
-        return false;
-    }
-
-
-
-
-
 
     public static String connection(String input){
 
@@ -433,6 +460,8 @@ public class Controller{
                 output = serverResponse;
                 if(output.length() > 1){
                     this.view.setParticipantsTextField(output.substring((output.indexOf('-') + 2)));
+
+                    this.view.setParticipantsTextFieldVisible();
 
                     System.out.println("Added Person: " + output);
                     this.view.setMessageBox("Player Added");
@@ -526,6 +555,31 @@ public class Controller{
     public void setOver(boolean over){
         this.view.setOver(over);
     }
+
+
+    public void setMessageBox(String message){
+        this.view.setMessageBox(message);
+    }
+
+    public void setWordSuggestion(String message){
+        this.view.testSetWordClue(message);
+        this.view.mainPanel.updateUI();
+        System.out.println("Suggestion box suposed to update to " + message);
+    }
+
+    public void showResults(){
+        this.view.resultsPage();
+        this.view.layout.show(this.view.mainPanel,"8");
+
+    }
+
+    public boolean getOver(){
+
+        return this.view.getOver();
+    }
+
+
+
 
 
 
